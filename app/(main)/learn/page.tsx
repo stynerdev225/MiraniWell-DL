@@ -85,7 +85,7 @@ const LearnPage = async () => {
                 lessons={unit.lessons}
                 activeLesson={courseProgress.activeLesson ? {
                   ...courseProgress.activeLesson,
-                  challenges: courseProgress.activeLesson.challenges.flatMap(challenge => 
+                  challenges: courseProgress.activeLesson.challenges.flatMap(challenge =>
                     challenge.challengeProgress || []
                   )
                 } : undefined}

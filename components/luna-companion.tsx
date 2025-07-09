@@ -53,7 +53,7 @@ export const LunaCompanion = () => {
             <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
           </div>
         </div>
-        
+
         <div className="flex-1">
           <h3 className="text-xl font-bold text-purple-800 mb-2">
             Luna - Your Multilingual AI Wellness Companion
@@ -61,7 +61,7 @@ export const LunaCompanion = () => {
           <p className="text-purple-700 text-sm mb-3">
             {wellnessMessages[currentLanguage] || wellnessMessages.EN}
           </p>
-          
+
           <div className="flex gap-2 flex-wrap">
             <Button
               variant="primaryOutline"
@@ -72,7 +72,7 @@ export const LunaCompanion = () => {
               {isListening ? <MicOff className="w-4 h-4 mr-1" /> : <Mic className="w-4 h-4 mr-1" />}
               {isListening ? 'Stop' : 'Speak'}
             </Button>
-            
+
             <Button
               variant="primaryOutline"
               size="sm"
@@ -82,7 +82,7 @@ export const LunaCompanion = () => {
               {isSpeaking ? <VolumeX className="w-4 h-4 mr-1" /> : <Volume2 className="w-4 h-4 mr-1" />}
               Luna Voice ({currentLanguage})
             </Button>
-            
+
             <div className="bg-gradient-to-r from-green-100 to-blue-100 px-3 py-1 rounded-full border">
               <span className="text-xs font-medium text-gray-700">
                 🌍 AI speaks {currentLanguage}
