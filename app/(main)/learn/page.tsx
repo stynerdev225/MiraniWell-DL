@@ -2,11 +2,11 @@ import { Suspense } from "react";
 import { redirect } from "next/navigation";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
+import { LunaCompanion } from "@/components/luna-companion";
 import { Promo } from "@/components/promo";
 import { Quests } from "@/components/quests";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
-import { LunaCompanion } from "@/components/luna-companion";
 import {
   getCourseProgress,
   getLessonPercentage,

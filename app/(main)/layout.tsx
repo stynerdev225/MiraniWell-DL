@@ -1,5 +1,8 @@
 import type { PropsWithChildren } from "react";
 
+// Force dynamic rendering for all main pages to prevent static generation errors during build
+export const dynamic = 'force-dynamic';
+
 import { MobileHeader } from "@/components/mobile-header";
 import { Sidebar } from "@/components/sidebar";
 
