@@ -83,7 +83,12 @@ const LearnPage = async () => {
                 description={unit.description}
                 title={unit.title}
                 lessons={unit.lessons}
-                activeLesson={courseProgress.activeLesson}
+                activeLesson={courseProgress.activeLesson ? {
+                  ...courseProgress.activeLesson,
+                  challenges: courseProgress.activeLesson.challenges.flatMap(challenge => 
+                    challenge.challengeProgress || []
+                  )
+                } : undefined}
                 activeLessonPercentage={lessonPercentage}
               />
             </div>

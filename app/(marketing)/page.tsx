@@ -30,7 +30,7 @@ export default function MarketingPage() {
             </Link>
 
             <Link href="/sign-in">
-              <Button size="lg" variant="outline" className="w-full border-2 border-gray-300 bg-white hover:bg-gray-50 text-gray-700 font-medium">
+              <Button size="lg" variant="primaryOutline" className="w-full border-2 border-gray-300 bg-white hover:bg-gray-50 text-gray-700 font-medium">
                 I already have an account
               </Button>
             </Link>

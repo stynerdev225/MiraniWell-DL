@@ -64,7 +64,7 @@ export const LunaCompanion = () => {
           
           <div className="flex gap-2 flex-wrap">
             <Button
-              variant="outline"
+              variant="primaryOutline"
               size="sm"
               onClick={handleVoiceToggle}
               className={`${isListening ? 'bg-red-100 border-red-300' : 'bg-white'}`}
@@ -74,7 +74,7 @@ export const LunaCompanion = () => {
             </Button>
             
             <Button
-              variant="outline"
+              variant="primaryOutline"
               size="sm"
               onClick={handleSpeakToggle}
               className={`${isSpeaking ? 'bg-blue-100 border-blue-300' : 'bg-white'}`}
