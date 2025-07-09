@@ -100,7 +100,7 @@ export const Header = () => {
 
   const navItems = [
     { href: "/#features", label: t('header.features'), id: "features" },
-    { href: "/#why-lingo", label: t('header.whyLingo'), id: "why-lingo" },
+    { href: "/#why-miriani-well", label: t('header.whyMirianiWell'), id: "why-miriani-well" },
     { href: "/#pricing", label: t('header.pricing'), id: "pricing" },
     { href: "/#about", label: t('header.about'), id: "about" },
     { href: "/contact", label: t('header.contact'), id: "contact" },
@@ -108,13 +108,13 @@ export const Header = () => {
 
   return (
     <>
-      <header className="h-20 w-full border-b-2 border-slate-200 px-4 bg-white">
+      <header className="h-20 w-full border-b-2 border-slate-200 px-4 bg-white sticky top-0 z-[99999]">
         <div className="mx-auto flex h-full items-center justify-between lg:max-w-screen-lg">
           {/* Logo Section */}
           <Link href="/" className="flex items-center gap-x-3 pb-7 pl-4 pt-8">
             <Image src="/mascot.svg" alt="Mascot" height={40} width={40} />
             <h1 className="text-2xl font-extrabold tracking-wide text-green-600">
-              Lingo
+              Miriani Well
             </h1>
           </Link>
 

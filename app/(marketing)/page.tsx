@@ -1,16 +1,6 @@
-import {
-  ClerkLoaded,
-  ClerkLoading,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-} from "@clerk/nextjs";
-import { Loader } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Footer } from "@/components/Footer";
 import { Features } from "@/components/landing/Features";
 import { Fluency } from "@/components/landing/Fluency";
 import { Reasons } from "@/components/landing/Reasons";
@@ -21,42 +11,29 @@ import { Button } from "@/components/ui/button";
 export default function MarketingPage() {
   return (
     <>
-      <div className="mx-auto flex w-full max-w-[988px] flex-1 flex-col items-center justify-center gap-2 p-4 lg:flex-row">
-        <div className="relative mb-8 h-[240px] w-[240px] lg:mb-0 lg:h-[424px] lg:w-[424px]">
+      <div className="mx-auto flex w-full max-w-[988px] flex-1 flex-col items-center justify-center gap-2 p-4 pt-16 lg:flex-row">
+        <div className="relative mb-8 h-[320px] w-[320px] lg:mb-0 lg:h-[500px] lg:w-[500px]">
           <Image src="/hero.svg" alt="Hero" fill />
         </div>
 
-        <div className="flex flex-col items-center gap-y-8">
-          <h1 className="max-w-[480px] text-center text-xl font-bold text-neutral-600 lg:text-3xl">
-            Learn, practice and master new languages with Lingo.
+        <div className="flex flex-col items-center gap-y-12">
+          <h1 className="max-w-[680px] text-center text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white">
+            Transform your <span className="text-green-600 dark:text-green-400">wellness journey</span> with Luna AI - your personal healing companion.
           </h1>
 
           <div className="flex w-full max-w-[330px] flex-col items-center gap-y-3">
-            <ClerkLoading>
-              <Loader className="h-5 w-5 animate-spin text-muted-foreground" />
-            </ClerkLoading>
+            {/* Temporary authentication bypass for marketing pages */}
+            <Link href="/sign-up">
+              <Button size="lg" variant="secondary" className="w-full">
+                Get Started
+              </Button>
+            </Link>
 
-            <ClerkLoaded>
-              <SignedOut>
-                <SignUpButton mode="modal" fallbackRedirectUrl="/learn" signInFallbackRedirectUrl="/learn">
-                  <Button size="lg" variant="secondary" className="w-full">
-                    Get Started
-                  </Button>
-                </SignUpButton>
-
-                <SignInButton mode="modal" fallbackRedirectUrl="/learn" signUpFallbackRedirectUrl="/learn">
-                  <Button size="lg" variant="primaryOutline" className="w-full">
-                    I already have an account
-                  </Button>
-                </SignInButton>
-              </SignedOut>
-
-              <SignedIn>
-                <Button size="lg" variant="secondary" className="w-full" asChild>
-                  <Link href="/learn">Continue Learning</Link>
-                </Button>
-              </SignedIn>
-            </ClerkLoaded>
+            <Link href="/sign-in">
+              <Button size="lg" variant="outline" className="w-full border-2 border-gray-300 bg-white hover:bg-gray-50 text-gray-700 font-medium">
+                I already have an account
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -65,9 +42,9 @@ export default function MarketingPage() {
       <WhyLingo />
 
       {/* Lingo by the numbers title section */}
-      <section className="pb-8 pt-16 md:py-20">
+      <section className="pb-8 pt-16 md:py-20 overflow-hidden">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center text-gray-900 dark:text-white mb-8">
-          <span className="text-green-600 dark:text-green-400">Lingo</span> by the{' '}
+          <span className="text-green-600 dark:text-green-400">Miriani Well</span> by the{' '}
           <span className="text-blue-600 dark:text-blue-400 underline decoration-wavy underline-offset-4 md:underline-offset-8">
             numbers
           </span>
@@ -481,12 +458,10 @@ export default function MarketingPage() {
         <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-8">
-              About <span className="text-green-600">Lingo</span>
+              About <span className="text-green-600">Miriani Well</span>
             </h2>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              Our mission is to make education free, fun, and accessible to everyone. We believe that learning a
-              new language should be an enjoyable journey, not a chore. That&apos;s why we&apos;ve created bite-sized
-              lessons that fit into your daily routine.
+              Our mission is to make wellness accessible, personalized, and transformative for everyone. We believe that your healing journey should be supported by compassionate AI guidance. That&apos;s why we&apos;ve created Luna - your 24/7 wellness companion with elemental healing practices.
             </p>
           </div>
 
@@ -568,14 +543,10 @@ export default function MarketingPage() {
             {/* Story Text */}
             <div className="space-y-6">
               <p className="text-lg text-gray-600 leading-relaxed">
-                Founded in 2011, Lingo started with a simple idea: make language learning free
-                and accessible to everyone, everywhere. What began as a passion project has
-                grown into the world&apos;s most popular way to learn a language.
+                Founded with a vision to revolutionize wellness, Miriani Well started with a simple idea: make healing accessible to everyone, everywhere. What began as a passion for combining ancient wisdom with modern AI has grown into a transformative wellness platform.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Today, we&apos;re proud to have helped over 500 million people discover the joy of
-                learning languages. Our bite-sized lessons make it easy to build a daily habit, and
-                our gamified approach keeps learners motivated and engaged.
+                Today, we&apos;re proud to help people discover their path to emotional balance and spiritual growth. Our elemental healing practices and Luna AI companion make it easy to build daily wellness habits that truly transform lives.
               </p>
             </div>
 
@@ -761,8 +732,6 @@ export default function MarketingPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 }

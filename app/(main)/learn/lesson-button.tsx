@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 import "react-circular-progressbar/dist/styles.css";
+import "./lesson-button.css";
 
 type LessonButtonProps = {
   id: number;
@@ -50,14 +51,15 @@ export const LessonButton = ({
     <Link
       href={href}
       aria-disabled={locked}
-      style={{ pointerEvents: locked ? "none" : "auto" }}
+      className={locked ? "pointer-events-none" : "pointer-events-auto"}
     >
       <div
-        className="relative"
-        style={{
-          right: `${rightPosition}px`,
-          marginTop: isFirst && !isCompleted ? 60 : 24,
-        }}
+        className={cn(
+          "relative",
+          isFirst && !isCompleted ? "mt-[60px]" : "mt-6",
+          `lesson-btn-right-pos` // new utility class for right position
+        )}
+        data-right-position={rightPosition}
       >
         {current ? (
           <div className="relative h-[102px] w-[102px]">

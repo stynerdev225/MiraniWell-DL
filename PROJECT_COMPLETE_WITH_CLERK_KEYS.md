@@ -3,6 +3,7 @@
 ## 🎯 Project Fully Configured & Ready
 
 ### **Client & Developer Information**
+
 - **Client:** Dr. Uzo Nwankpa
 - **Company:** Miriani Well
 - **Developer:** StynerDev ([styner.dev](https://styner.dev))
@@ -13,14 +14,16 @@
 ## 🔑 API Keys & Authentication Setup
 
 ### **Clerk Authentication - CONFIGURED ✅**
+
 - **Project:** MiraniWell-DL-main
 - **Public Key:** `pk_test_Y2FsbS1tb25rZmlzaC00Ny5jbGVyay5hY2NvdW50cy5kZXYk`
 - **Secret Key:** `sk_test_PuxkxnYOGaTqoucmIe73HyAdRzpU0BmhKu3LxKsOM5`
-- **Frontend API:** https://calm-monkfish-47.clerk.accounts.dev
-- **Backend API:** https://api.clerk.com
-- **JWKS URL:** https://calm-monkfish-47.clerk.accounts.dev/.well-known/jwks.json
+- **Frontend API:** <https://calm-monkfish-47.clerk.accounts.dev>
+- **Backend API:** <https://api.clerk.com>
+- **JWKS URL:** <https://calm-monkfish-47.clerk.accounts.dev/.well-known/jwks.json>
 
 ### **Environment Files Updated:**
+
 - ✅ `.env.example` - Template with actual Clerk keys
 - ✅ `.env.local` - Ready-to-use environment file created
 
@@ -31,6 +34,7 @@
 ### **Core Features:**
 
 #### 🤖 **Luna AI Companion**
+
 - 24/7 emotional support and guidance
 - Personalized healing recommendations
 - Natural conversation interface
@@ -38,30 +42,35 @@
 - Custom affirmations and coping strategies
 
 #### 🌍 **Elemental Healing Rituals**
+
 - **Earth:** Grounding exercises, manifestation work
 - **Water:** Emotional healing, cleansing rituals
 - **Fire:** Energy work, transformation practices
 - **Air:** Breathwork, mental clarity, communication
 
 #### 📊 **Smart Wellness Dashboard**
+
 - Progress tracking and analytics
 - Mood pattern analysis
 - Personalized insights and recommendations
 - Milestone celebrations
 
 #### 📝 **Guided Journaling & Reflection**
+
 - Sacred space for personal growth
 - Structured journaling prompts
 - Gratitude tracking
 - Emotional processing tools
 
 #### 💬 **Personalized Affirmations Library**
+
 - Daily affirmations based on your journey
 - Categorized by life areas
 - AI-powered personalization
 - Custom affirmation creation
 
 #### 📈 **Mood Tracking & Analytics**
+
 - Daily emotional check-ins
 - Pattern and trigger identification
 - Emotional growth insights
@@ -72,6 +81,7 @@
 ## 🛠️ Technical Implementation
 
 ### **Tech Stack:**
+
 - **Frontend:** Next.js 14, React 18, TypeScript
 - **Authentication:** Clerk (CONFIGURED)
 - **AI Integration:** Google Gemini AI (for Luna)
@@ -81,6 +91,7 @@
 - **Deployment:** Vercel
 
 ### **Key Files Updated:**
+
 - ✅ `package.json` - Duolingo-inspired keywords and description
 - ✅ `README.md` - Comprehensive platform documentation
 - ✅ `config/index.ts` - Site configuration with Luna AI details
@@ -92,6 +103,7 @@
 ## 🚀 Ready to Launch
 
 ### **What's Configured:**
+
 1. **Authentication System** - Clerk API keys integrated
 2. **Project Branding** - Duolingo-inspired wellness platform
 3. **AI Features** - Luna companion specifications
@@ -99,7 +111,9 @@
 5. **Environment** - Ready-to-use configuration files
 
 ### **Next Steps:**
+
 1. **Database Setup:**
+
    ```bash
    npm run db:push
    npm run db:seed
@@ -111,6 +125,7 @@
    - Database connection string
 
 3. **Start Development:**
+
    ```bash
    npm install --legacy-peer-deps
    npm run dev
@@ -121,6 +136,7 @@
 ## 📱 User Experience
 
 ### **Duolingo-Inspired Elements:**
+
 - **Gamified Wellness Journey** - Progress tracking like language learning
 - **Daily Streaks** - Consistent wellness practice rewards
 - **Achievement System** - Unlock healing milestones
@@ -128,6 +144,7 @@
 - **Luna AI Companion** - Your personal wellness coach (like Duo the owl!)
 
 ### **Daily Flow:**
+
 - **Morning:** Affirmations and intention setting with Luna
 - **Throughout Day:** Quick wellness check-ins and healing rituals
 - **Evening:** Journaling, reflection, and progress review
@@ -140,6 +157,7 @@
 **Repository:** `github.com/StynerDev/miriani-well-wellness-platform`
 
 **What's Ready:**
+
 - ✅ Clerk authentication fully configured
 - ✅ Duolingo-inspired platform design
 - ✅ Luna AI companion specifications

@@ -52,12 +52,14 @@
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/StynerDev/miriani-well-wellness-platform.git
 cd miriani-well-wellness-platform
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 # or
@@ -65,11 +67,13 @@ yarn install
 ```
 
 3. Set up environment variables:
+
 ```bash
 cp .env.example .env.local
 ```
 
 4. Configure your environment variables in `.env.local`:
+
 ```env
 DATABASE_URL=your_postgresql_connection_string
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
@@ -80,16 +84,19 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
 5. Run database migrations:
+
 ```bash
 npm run db:push
 ```
 
 6. Seed the database:
+
 ```bash
 npm run db:seed
 ```
 
 7. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -118,6 +125,7 @@ miriani-well-wellness-platform/
 ## Wellness Platform Features
 
 ### Core Wellness Modules
+
 - **Mindfulness & Meditation**: Guided sessions and progress tracking
 - **Spiritual Growth**: Personalized spiritual journey mapping
 - **Mental Health Tools**: AI-powered mood tracking and recommendations
@@ -125,6 +133,7 @@ miriani-well-wellness-platform/
 - **Community Features**: Connect with like-minded wellness seekers
 
 ### AI-Powered Personalization
+
 - Smart content recommendations based on your wellness goals
 - Adaptive learning algorithms that evolve with your progress
 - Personalized wellness plans created by advanced AI
@@ -168,6 +177,7 @@ For technical support or questions about Miriani Well:
 ## About the Developer
 
 **StynerDev** is a CTO & Full-Stack Developer specializing in:
+
 - Mobile & Cross-Platform Applications
 - Blockchain Development (ICP Specialist)
 - COBOL Systems Integration

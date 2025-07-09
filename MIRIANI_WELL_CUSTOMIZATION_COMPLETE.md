@@ -6,7 +6,7 @@
 
 - **Name**: StynerDev
 - **Website**: <https://styner.dev>
-- **Email**: contact@styner.dev
+- **Email**: <contact@styner.dev>
 - **Expertise**: CTO & Full-Stack Developer | Mobile & Cross-Platform Apps | Blockchain (ICP) & COBOL Specialist
 
 ### **Client Information**
@@ -26,7 +26,7 @@
 - ✅ Author: StynerDev with styner.dev website
 - ✅ Repository: github.com/StynerDev/miriani-well-wellness-platform
 - ✅ Keywords: Added wellness, mental-health, spiritual-growth, ai-powered, personalized-wellness
-- ✅ Contact: contact@styner.dev
+- ✅ Contact: <contact@styner.dev>
 - ✅ Funding: GitHub Sponsors for StynerDev
 
 ### 2. **License (`LICENSE`)**
@@ -40,7 +40,7 @@
 - ✅ Keywords: Updated to wellness-focused terms
 - ✅ Author: StynerDev with styner.dev link
 - ✅ Source code: Points to StynerDev repository
-- ✅ Email: contact@styner.dev
+- ✅ Email: <contact@styner.dev>
 
 ### 4. **Documentation (`README.md`)**
 
@@ -54,7 +54,7 @@
 
 ### 5. **Security Policy (`SECURITY.md`)**
 
-- ✅ Contact email: contact@styner.dev
+- ✅ Contact email: <contact@styner.dev>
 - ✅ Professional security reporting procedures
 
 ### 6. **Environment Configuration (`.env.example`)**
@@ -145,6 +145,7 @@ npm run dev
 ## 🏆 Project Status: COMPLETE ✅
 
 **The Miriani Well platform is now:**
+
 - ✅ Fully customized for Dr. Uzo Nwankpa
 - ✅ Professionally branded with StynerDev development credentials
 - ✅ Focused on AI-powered wellness and spiritual growth

@@ -272,7 +272,7 @@ export function WhyLingo() {
             <AnimatedTitle>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center text-gray-900 dark:text-white mb-4 relative z-10">
                     Why choose{' '}
-                    <span className="text-green-600 dark:text-green-400">Lingo</span>
+                    <span className="text-green-600 dark:text-green-400">Miriani Well</span>
                     <span className="text-blue-600 dark:text-blue-400">?</span>
                 </h2>
             </AnimatedTitle>

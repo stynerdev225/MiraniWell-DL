@@ -85,12 +85,12 @@
   "license": "Proprietary",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stynerdev225/MiraniWell-DL-Main-main.git"
+    "url": "https://github.com/MirianiWell/miriani-well-platform.git"
   },
-  "homepage": "https://github.com/stynerdev225/MiraniWell-DL-Main-main#readme",
+  "homepage": "https://mirianiwell.com",
   "bugs": {
-    "url": "https://github.com/stynerdev225/MiraniWell-DL-Main-main/issues",
-    "email": "stynerdev2025@aol.com"
+    "url": "https://github.com/MirianiWell/miriani-well-platform/issues",
+    "email": "support@mirianiwell.com"
   },
   "funding": [
     {
@@ -111,6 +111,7 @@
     "better-sqlite3": "^12.2.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "critters": "^0.0.23",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.44.2",
     "framer-motion": "^12.23.0",

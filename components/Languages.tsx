@@ -37,8 +37,8 @@ export function Languages() {
     return (
         <section id="languages" className="space-y-12 px-4 py-16 sm:px-[10%] md:py-24 bg-white dark:from-slate-900 dark:to-slate-800">
             <AnimatedTitle>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center text-gray-900 dark:text-white mb-8">
-                    I want to <span className="text-green-600 dark:text-green-400">learn ...</span>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center text-gray-900 dark:text-white mb-8 leading-tight">
+                    <span className="text-blue-600 dark:text-blue-400">Wellness courses</span> available in <span className="text-green-600 dark:text-green-400">12 languages</span>
                 </h2>
             </AnimatedTitle>
             <div className="mx-auto max-w-6xl">

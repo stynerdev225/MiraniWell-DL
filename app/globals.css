@@ -9,6 +9,20 @@ body,
   overflow-x: hidden;
 }
 
+/* Hide scrollbars globally */
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body {
+  -ms-overflow-style: none;
+}
+
 /* Floating animation keyframes */
 @keyframes float {
   0%,
@@ -325,4 +339,9 @@ body,
       font-size: 2rem;
     }
   }
+}
+
+/* Lesson button dynamic positioning */
+.lesson-button-position {
+  right: var(--right-position, 0px);
 }

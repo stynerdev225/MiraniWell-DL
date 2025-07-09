@@ -51,7 +51,7 @@
 ### 1. Replace Placeholder Information
 
 - Replace "Your Name" with your actual name
-- Replace "your.email@example.com" with your email
+- Replace "<your.email@example.com>" with your email
 - Replace "yourusername" with your GitHub username
 - Replace "your-language-learning-app" with your desired repository name
 

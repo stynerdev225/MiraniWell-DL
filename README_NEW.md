@@ -43,12 +43,14 @@ Lingo is an interactive platform for language learning with lessons, quizzes, an
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/your-language-learning-app.git
 cd your-language-learning-app
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 # or
@@ -56,11 +58,13 @@ yarn install
 ```
 
 3. Set up environment variables:
+
 ```bash
 cp .env.example .env.local
 ```
 
 4. Configure your environment variables in `.env.local`:
+
 ```env
 DATABASE_URL=your_postgresql_connection_string
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
@@ -71,16 +75,19 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
 5. Run database migrations:
+
 ```bash
 npm run db:push
 ```
 
 6. Seed the database:
+
 ```bash
 npm run db:seed
 ```
 
 7. Start the development server:
+
 ```bash
 npm run dev
 ```

@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 
-import { Header } from "./header";
+import { Header } from "../(marketing)/header";
 
 const AuthLayout = ({ children }: PropsWithChildren) => {
   return (

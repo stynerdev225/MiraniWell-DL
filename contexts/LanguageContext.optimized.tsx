@@ -26,12 +26,12 @@ interface LanguageProviderProps {
 // Lazy load translations to improve initial page load performance
 const loadTranslations = async (language: Language) => {
     try {
-        const translations = await import(`../lib/translations/${language}.json`);
+        const translations = await import(`../lib/translations/${language}.json`) as { default: Record<string, string> };
         return translations.default;
     } catch (error) {
-        console.warn(`Failed to load translations for ${language}, falling back to EN`);
-        const fallback = await import(`../lib/translations/EN.json`);
-        return fallback.default;
+        console.warn(`Failed to load translations for ${language}, using empty fallback`);
+        // Return empty object as fallback when translation files don't exist
+        return {};
     }
 };
 
@@ -54,7 +54,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
             setTranslations(langTranslations);
         };
 
-        loadLanguageTranslations();
+        loadLanguageTranslations().catch(console.error);
     }, [currentLanguage]);
 
     const setLanguage = (language: Language) => {

@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-
 import { redirect } from "next/navigation";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
@@ -7,6 +6,7 @@ import { Promo } from "@/components/promo";
 import { Quests } from "@/components/quests";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
+import { LunaCompanion } from "@/components/luna-companion";
 import {
   getCourseProgress,
   getLessonPercentage,
@@ -16,7 +16,7 @@ import {
 } from "@/db/queries";
 
 import { Header } from "./header";
-import { Unit } from "./unit";
+import { WellnessUnit } from "./wellness-unit";
 
 // Loading skeleton components
 const LoadingSkeleton = () => (
@@ -73,10 +73,11 @@ const LearnPage = async () => {
           <Quests points={userProgress.points} />
         </StickyWrapper>
         <FeedWrapper>
-          <Header title={userProgress.activeCourse.title} />
+          <Header title="Your Wellness Journey with Luna" />
+          <LunaCompanion />
           {units.map((unit) => (
             <div key={unit.id} className="mb-10">
-              <Unit
+              <WellnessUnit
                 id={unit.id}
                 order={unit.order}
                 description={unit.description}

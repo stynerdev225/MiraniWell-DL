@@ -24,20 +24,22 @@ export const Sidebar = ({ className }: SidebarProps) => {
           <Image src="/mascot.svg" alt="Mascot" height={40} width={40} />
 
           <h1 className="text-2xl font-extrabold tracking-wide text-green-600">
-            Lingo
+            Miriani Well
           </h1>
         </div>
       </Link>
 
       <div className="flex flex-1 flex-col gap-y-2">
-        <SidebarItem label="Learn" href="/learn" iconSrc="/learn.svg" />
+        <SidebarItem label="Learn" href="/learn" iconSrc="/img/icons/learn.svg" />
+        <SidebarItem label="Ritual Room" href="/ritual-room" iconSrc="/mascot.svg" />
+        <SidebarItem label="Mind Body Spirit" href="/mind-body-spirit" iconSrc="/hero.svg" />
         <SidebarItem
           label="Leaderboard"
           href="/leaderboard"
-          iconSrc="/leaderboard.svg"
+          iconSrc="/img/icons/leaderboard.svg"
         />
-        <SidebarItem label="Quests" href="/quests" iconSrc="/quests.svg" />
-        <SidebarItem label="Shop" href="/shop" iconSrc="/shop.svg" />
+        <SidebarItem label="Quests" href="/quests" iconSrc="/img/icons/quests.svg" />
+        <SidebarItem label="Shop" href="/shop" iconSrc="/img/icons/shop.svg" />
       </div>
 
       <div className="p-4">

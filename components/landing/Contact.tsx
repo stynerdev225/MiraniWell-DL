@@ -11,8 +11,8 @@ const contactMethods = [
         icon: Mail,
         title: 'Email Us',
         description: 'Send us an email and we will get back to you within 24 hours',
-        contact: 'hello@lingo.com',
-        action: 'mailto:hello@lingo.com',
+        contact: 'support@mirianiwell.com',
+        action: 'mailto:support@mirianiwell.com',
         color: 'text-blue-600',
         bgColor: 'bg-blue-100',
     },
@@ -91,7 +91,7 @@ export function Contact() {
                     transition={{ delay: 0.2 }}
                     className="mt-6 text-center text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
                 >
-                    Have questions about Lingo? Need help with your account? Want to partner with us?
+                    Have questions about Miriani Well? Need help with your wellness journey? Want to partner with us?
                     We would love to hear from you!
                 </motion.p>
 

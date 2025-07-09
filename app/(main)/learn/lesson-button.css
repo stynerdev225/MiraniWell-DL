@@ -1,0 +1,9 @@
+.lesson-btn-right-pos {
+  right: var(--right-position, 0px);
+  position: relative;
+}
+
+/* Dynamically set right position using data attribute */
+.lesson-btn-right-pos[data-right-position] {
+  right: attr(data-right-position px);
+}

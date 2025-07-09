@@ -5,7 +5,7 @@ import { AnimatedTitle } from '@/components/motion/AnimatedTitle'
 
 export function Reasons() {
     return (
-        <section className="px-4 sm:px-6 lg:px-8">
+        <section className="px-4 sm:px-6 lg:px-8 hide-scrollbar reasons-overflow-fix reasons-section">
             <div className="mx-auto max-w-7xl space-y-8">
                 <AnimatedTitle>
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center text-gray-900 dark:text-white mb-8">

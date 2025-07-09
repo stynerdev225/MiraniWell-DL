@@ -61,7 +61,7 @@ const itemVariants = {
 
 export function Features() {
     return (
-        <section id="features" className="py-16 md:py-20 lg:py-24">
+        <section id="features" className="py-0 md:py-0 lg:py-0">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <motion.div
                     variants={containerVariants}
