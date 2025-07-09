@@ -1,22 +1,23 @@
-# Miriani Well - AI Wellness Companion Platform
+# Miriani Well - Multilingual AI-Powered Wellness Platform
 
-![Miriani Well - AI Wellness Companion with Luna](/.github/images/img_main.png "Miriani Well - AI Wellness Companion with Luna")
+![Miriani Well - Multilingual AI Wellness Companion with Luna](/.github/images/img_main.png "Miriani Well - Multilingual AI Wellness Companion with Luna")
 
-[![Proprietary License](https://img.shields.io/badge/license-Proprietary-red.svg)](https://github.com/MirianiWell/miriani-well-platform/blob/main/LICENSE "Proprietary License")
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/MirianiWell/miriani-well-platform/commits/main "Maintenance")
-[![Company](https://img.shields.io/badge/Company-Miriani%20Well-blue.svg)](https://mirianiwell.com "Company")
-[![AI Powered](https://img.shields.io/badge/AI-Luna%20Companion-purple.svg)](https://mirianiwell.com "AI Powered")
+[![Proprietary License](https://img.shields.io/badge/license-Proprietary-red.svg)](https://github.com/stynerdev225/MiraniWell-DL-Main-main/blob/main/LICENSE "Proprietary License")
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/stynerdev225/MiraniWell-DL-Main-main/commits/main "Maintenance")
+[![Company](https://img.shields.io/badge/Company-Miriani%20Well-blue.svg)](https://github.com/stynerdev225/MiraniWell-DL-Main-main "Company")
+[![AI Powered](https://img.shields.io/badge/AI-Luna%20Companion-purple.svg)](https://github.com/stynerdev225/MiraniWell-DL-Main-main "AI Powered")
 
-## About Miriani Well
+## 🌟 About Miriani Well
 
-**Miriani Well** is your comprehensive digital wellness companion - combining the wisdom of ancient healing practices with the power of modern AI to support your personal growth journey, available 24/7 on any device.
+**Miriani Well** is your comprehensive multilingual digital wellness companion - combining the wisdom of ancient healing practices with the power of modern AI to support your personal growth journey globally, available 24/7 in multiple languages.
 
-**Inspired by Duolingo's gamified learning approach**, Miriani Well transforms wellness into an engaging, progressive journey with Luna, your AI companion, guiding you through elemental healing practices, mood tracking, and personalized spiritual growth.
+**Inspired by Duolingo's gamified learning approach**, Miriani Well transforms wellness into an engaging, progressive journey with Luna, your multilingual AI companion, guiding you through elemental healing practices, mood tracking, and personalized spiritual growth across language barriers.
 
-**Client:** Dr. Uzo Nwankpa - Founder & CEO  
-**Company:** Miriani Well Inc.  
+**Company:** Miriani Well Inc.
+**Founder & CEO:** Dr. Uzo Nwankpa  
 **Lead Developer:** StynerDev Development Team  
-**Website:** [mirianiwell.com](https://mirianiwell.com)  
+**Contact:** stynerdev2025@aol.com
+**Repository:** https://github.com/stynerdev225/MiraniWell-DL-Main-main.git
 **Platform:** Multilingual AI-Powered Wellness Experience
 
 ## 🌟 Core Features & Benefits
