@@ -21,13 +21,12 @@ const main = async () => {
 
     // Dynamic imports to avoid issues if packages aren't available
     const { neon } = await import("@neondatabase/serverless");
-    const { drizzle } = await import("drizzle-orm/neon-http");
 
     console.log("📊 Connecting to production database...");
     const sql = neon(process.env.DATABASE_URL);
     
     // Simple database connection test
-    const result = await sql`SELECT 1 as test`;
+    await sql`SELECT 1 as test`;
     console.log("✅ Database connection successful");
 
     // Create tables using raw SQL for better compatibility

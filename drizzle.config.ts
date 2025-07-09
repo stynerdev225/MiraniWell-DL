@@ -8,11 +8,20 @@ if (!process.env.DATABASE_URL) {
 // Check if we're using Neon (production) or SQLite (development)
 const isNeon = process.env.DATABASE_URL.startsWith("postgresql://") || process.env.DATABASE_URL.startsWith("postgres://");
 
-export default {
+const config: Config = isNeon ? {
   schema: "./db/schema.ts",
   out: "./drizzle",
-  dialect: isNeon ? "postgresql" : "sqlite",
-  dbCredentials: isNeon 
-    ? { url: process.env.DATABASE_URL }
-    : { url: process.env.DATABASE_URL.replace("file:", "") },
-} satisfies Config;
+  dialect: "postgresql",
+  dbCredentials: {
+    url: process.env.DATABASE_URL,
+  },
+} : {
+  schema: "./db/schema.ts", 
+  out: "./drizzle",
+  dialect: "sqlite",
+  dbCredentials: {
+    url: process.env.DATABASE_URL.replace("file:", ""),
+  },
+};
+
+export default config;

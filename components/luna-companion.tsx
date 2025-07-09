@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Mic, MicOff, Volume2, VolumeX, Globe } from "lucide-react";
+
+import { Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 import Image from "next/image";
+
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const LunaCompanion = () => {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [lunaMessage, setLunaMessage] = useState("");
-  const { currentLanguage, t } = useLanguage();
+  const { currentLanguage } = useLanguage();
 
   const wellnessMessages = {
     EN: "Hello! I'm Luna, your AI wellness companion. I can guide you through healing practices in any language you choose. Ready to begin?",

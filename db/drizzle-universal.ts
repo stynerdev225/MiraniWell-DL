@@ -1,28 +1,37 @@
-import { drizzle } from "drizzle-orm/better-sqlite3";
-import { drizzle as drizzleNeon } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
-import Database from "better-sqlite3";
-import "dotenv/config";
+import { drizzle as drizzleNeon } from "drizzle-orm/neon-http";
 
-// Import schema based on environment
-const isProduction = process.env.NODE_ENV === "production" || 
-  process.env.DATABASE_URL?.startsWith("postgresql://") || 
-  process.env.DATABASE_URL?.startsWith("postgres://");
+// Check if we're in production
+const isProduction = process.env.VERCEL_ENV === "production" || 
+  process.env.NODE_ENV === "production" ||
+  (process.env.DATABASE_URL && process.env.DATABASE_URL.includes("postgresql"));
 
-let schema: any;
-let db: any;
-
-if (isProduction) {
-  // Production: Use PostgreSQL schema and Neon
-  schema = await import("./schema-postgres");
-  const sql = neon(process.env.DATABASE_URL!);
-  db = drizzleNeon(sql, { schema });
-} else {
-  // Development: Use SQLite schema and better-sqlite3
-  schema = await import("./schema");
-  const sqlite = new Database(process.env.DATABASE_URL?.replace("file:", "") || "./local.db");
-  db = drizzle(sqlite, { schema });
+async function getDatabase() {
+  if (isProduction && process.env.DATABASE_URL) {
+    // Production: Use Neon PostgreSQL
+    try {
+      const schema = await import("./schema-postgres");
+      const sql = neon(process.env.DATABASE_URL);
+      const db = drizzleNeon(sql, { schema });
+      return { db, schema };
+    } catch (error) {
+      console.warn("PostgreSQL schema not found, falling back to SQLite schema");
+      const schema = await import("./schema");
+      const sql = neon(process.env.DATABASE_URL);
+      const db = drizzleNeon(sql, { schema });
+      return { db, schema };
+    }
+  } else {
+    // Development: Use SQLite
+    const Database = (await import("better-sqlite3")).default;
+    const { drizzle } = await import("drizzle-orm/better-sqlite3");
+    const schema = await import("./schema");
+    const sqlite = new Database("./local.db");
+    const db = drizzle(sqlite, { schema });
+    return { db, schema };
+  }
 }
 
-export { db, schema };
-export * from "./schema"; // Export original schema for compatibility
+// Export the database promise
+export const dbPromise = getDatabase();
+export * from "./schema";

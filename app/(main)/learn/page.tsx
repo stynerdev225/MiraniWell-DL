@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+
 import { redirect } from "next/navigation";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
@@ -14,6 +15,12 @@ import {
   getUserProgress,
   getUserSubscription,
 } from "@/db/queries";
+import type {
+  UnitWithLessons,
+  CourseProgressData,
+  UserProgressWithCourse,
+  UserSubscriptionWithStatus,
+} from "@/types/database";
 
 import { Header } from "./header";
 import { WellnessUnit } from "./wellness-unit";
@@ -38,7 +45,6 @@ const LoadingSkeleton = () => (
 );
 
 const LearnPage = async () => {
-  // Parallel data fetching for better performance
   const [
     userProgress,
     units,
@@ -51,7 +57,13 @@ const LearnPage = async () => {
     getCourseProgress(),
     getLessonPercentage(),
     getUserSubscription(),
-  ]);
+  ]) as [
+    UserProgressWithCourse | null,
+    UnitWithLessons[],
+    CourseProgressData | null,
+    number,
+    UserSubscriptionWithStatus | null,
+  ];
 
   if (!courseProgress || !userProgress || !userProgress.activeCourse)
     redirect("/courses");
@@ -70,7 +82,7 @@ const LearnPage = async () => {
           />
 
           {!isPro && <Promo />}
-          <Quests points={userProgress.points} />
+          <Quests points={userProgress?.points || 0} />
         </StickyWrapper>
         <FeedWrapper>
           <Header title="Your Wellness Journey with Luna" />
@@ -83,12 +95,16 @@ const LearnPage = async () => {
                 description={unit.description}
                 title={unit.title}
                 lessons={unit.lessons}
-                activeLesson={courseProgress.activeLesson ? {
-                  ...courseProgress.activeLesson,
-                  challenges: courseProgress.activeLesson.challenges.flatMap(challenge =>
-                    challenge.challengeProgress || []
-                  )
-                } : undefined}
+                activeLesson={
+                  courseProgress.activeLesson
+                    ? {
+                        ...courseProgress.activeLesson,
+                        challenges: courseProgress.activeLesson.challenges.flatMap((challenge) =>
+                          Array.isArray(challenge.challengeProgress) ? challenge.challengeProgress : []
+                        ),
+                      }
+                    : undefined
+                }
                 activeLessonPercentage={lessonPercentage}
               />
             </div>
