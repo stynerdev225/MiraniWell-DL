@@ -1,25 +1,32 @@
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { LanguageToggle } from "@/components/language-toggle";
 import { Quests } from "@/components/quests";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
-import { getUserProgress, getUserSubscription } from "@/db/queries";
 
 import { Items } from "./items";
 
-const ShopPage = async () => {
-  const userProgressData = getUserProgress();
-  const userSubscriptionData = getUserSubscription();
+// Mock data for shop page
+const mockUserProgress = {
+  activeCourse: {
+    id: 1,
+    title: "English Wellness",
+    imageSrc: "/us.svg",
+  },
+  hearts: 5,
+  points: 250,
+  hasActiveSubscription: false,
+};
 
-  const [userProgress, userSubscription] = await Promise.all([
-    userProgressData,
-    userSubscriptionData,
-  ]);
+const mockUserSubscription = {
+  isActive: false,
+};
 
-  if (!userProgress || !userProgress.activeCourse) redirect("/courses");
+const ShopPage = () => {
+  const userProgress = mockUserProgress;
+  const userSubscription = mockUserSubscription;
 
   const isPro = !!userSubscription?.isActive;
 

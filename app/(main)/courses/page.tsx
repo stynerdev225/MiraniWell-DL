@@ -1,28 +1,57 @@
-import { getCourses, getUserProgress } from "@/db/queries";
-import { LunaCompanion } from "@/components/luna-companion";
 import Image from "next/image";
+
+import { LunaCompanion } from "@/components/luna-companion";
 
 import { List } from "./list";
 
-const CoursesPage = async () => {
-  const coursesData = getCourses();
-  const userProgressData = getUserProgress();
+// Mock data for courses
+const mockCourses = [
+  {
+    id: 1,
+    title: "English Wellness",
+    imageSrc: "/us.svg",
+  },
+  {
+    id: 2,
+    title: "Spanish Wellness",
+    imageSrc: "/es.svg",
+  },
+  {
+    id: 3,
+    title: "French Wellness",
+    imageSrc: "/fr.svg",
+  },
+  {
+    id: 4,
+    title: "Italian Wellness",
+    imageSrc: "/it.svg",
+  },
+  {
+    id: 5,
+    title: "Japanese Wellness",
+    imageSrc: "/jp.svg",
+  },
+];
 
-  const [courses, userProgress] = await Promise.all([
-    coursesData,
-    userProgressData,
-  ]);
+// Mock user progress
+const mockUserProgress = {
+  activeCourseId: 1, // English is active by default
+};
+
+const CoursesPage = () => {
+  const courses = mockCourses;
+  const userProgress = mockUserProgress;
 
   return (
     <div className="mx-auto h-full max-w-[1200px] px-6">
       {/* Header Section */}
       <div className="text-center mb-8">
         <div className="mb-6">
-          <Image 
-            src="/hero.svg" 
-            alt="Wellness Languages" 
-            width={120} 
-            height={120} 
+          <Image
+            src="/hero.svg"
+            alt="Wellness Languages"
+            width={120}
+            height={120}
             className="mx-auto mb-4 animate-pulse"
           />
         </div>
@@ -30,7 +59,7 @@ const CoursesPage = async () => {
           🌍 Wellness Language Courses
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
-          Learn healing, mindfulness, and spiritual growth in your preferred language. 
+          Learn healing, mindfulness, and spiritual growth in your preferred language.
           Each course combines ancient wisdom with modern wellness practices.
         </p>
         <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-4 max-w-md mx-auto">

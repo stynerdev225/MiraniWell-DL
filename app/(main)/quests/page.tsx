@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { LanguageToggle } from "@/components/language-toggle";
@@ -8,18 +7,26 @@ import { StickyWrapper } from "@/components/sticky-wrapper";
 import { Progress } from "@/components/ui/progress";
 import { UserProgress } from "@/components/user-progress";
 import { QUESTS } from "@/constants";
-import { getUserProgress, getUserSubscription } from "@/db/queries";
 
-const QuestsPage = async () => {
-  const userProgressData = getUserProgress();
-  const userSubscriptionData = getUserSubscription();
+// Mock data for quests page
+const mockUserProgress = {
+  activeCourse: {
+    id: 1,
+    title: "English Wellness",
+    imageSrc: "/us.svg",
+  },
+  hearts: 5,
+  points: 250,
+  hasActiveSubscription: false,
+};
 
-  const [userProgress, userSubscription] = await Promise.all([
-    userProgressData,
-    userSubscriptionData,
-  ]);
+const mockUserSubscription = {
+  isActive: false,
+};
 
-  if (!userProgress || !userProgress.activeCourse) redirect("/courses");
+const QuestsPage = () => {
+  const userProgress = mockUserProgress;
+  const userSubscription = mockUserSubscription;
 
   const isPro = !!userSubscription?.isActive;
 

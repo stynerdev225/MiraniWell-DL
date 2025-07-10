@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Confetti from "react-confetti";
 import { useAudio, useWindowSize, useMount } from "react-use";
-import { toast } from "sonner";
 
 import { MAX_HEARTS } from "@/constants";
 import { challengeOptions, challenges, userSubscription } from "@/db/schema";
@@ -18,10 +17,6 @@ import { Footer } from "./footer";
 import { Header } from "./header";
 import { QuestionBubble } from "./question-bubble";
 import { ResultCard } from "./result-card";
-
-type ApiResponse = {
-  error?: string;
-};
 
 type QuizProps = {
   initialPercentage: number;
@@ -58,7 +53,7 @@ export const Quiz = ({
   const { width, height } = useWindowSize();
 
   const router = useRouter();
-  const [pending, startTransition] = useTransition();
+  const [pending] = useTransition();
   const { open: openHeartsModal } = useHeartsModal();
   const { open: openPracticeModal } = usePracticeModal();
 
@@ -121,90 +116,42 @@ export const Quiz = ({
     if (!correctOption) return;
 
     if (correctOption.id === selectedOption) {
-      startTransition(async () => {
-        try {
-          const response = await fetch("/api/challenge-progress", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ challengeId: challenge.id }),
-          });
+      // Correct answer - use mock progression instead of API call
+      void correctControls.play();
+      setStatus("correct");
+      setPercentage((prev) => prev + 100 / challenges.length);
 
-          if (!response.ok) {
-            throw new Error("Failed to update challenge progress");
-          }
-
-          const data = await response.json() as ApiResponse;
-
-          if (data?.error === "hearts") {
-            openHeartsModal();
-            return;
-          }
-
-          void correctControls.play();
-          setStatus("correct");
-          setPercentage((prev) => prev + 100 / challenges.length);
-
-          // This is a practice
-          if (initialPercentage === 100) {
-            setHearts((prev) => Math.min(prev + 1, MAX_HEARTS));
-          }
-        } catch (error) {
-          console.error("Error updating challenge progress:", error);
-          toast.error("Something went wrong. Please try again.");
-        }
-      });
+      // This is a practice
+      if (initialPercentage === 100) {
+        setHearts((prev) => Math.min(prev + 1, MAX_HEARTS));
+      }
     } else {
-      startTransition(async () => {
-        try {
-          const response = await fetch("/api/reduce-hearts", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ challengeId: challenge.id }),
-          });
+      // Wrong answer - use mock progression instead of API call
+      void incorrectControls.play();
+      setStatus("wrong");
+      setHearts((prev) => Math.max(prev - 1, 0));
 
-          if (!response.ok) {
-            throw new Error("Failed to reduce hearts");
-          }
-
-          const data = await response.json() as ApiResponse;
-
-          if (data?.error === "hearts") {
-            openHeartsModal();
-            return;
-          }
-
-          void incorrectControls.play();
-          setStatus("wrong");
-
-          if (!data?.error) {
-            setHearts((prev) => Math.max(prev - 1, 0));
-          }
-        } catch (error) {
-          console.error("Error reducing hearts:", error);
-          toast.error("Something went wrong. Please try again.");
-        }
-      });
+      // Check if hearts are 0 and user is not subscribed
+      if (hearts <= 1 && !userSubscription?.isActive) {
+        openHeartsModal();
+        return;
+      }
     }
   }, [
     selectedOption,
     status,
     options,
-    challenge.id,
-    startTransition,
-    openHeartsModal,
     correctControls,
     setStatus,
-    setSelectedOption,
-    onNext,
     setPercentage,
     challenges.length,
     initialPercentage,
     setHearts,
     incorrectControls,
+    hearts,
+    userSubscription?.isActive,
+    openHeartsModal,
+    onNext,
   ]);
 
   if (!challenge) {

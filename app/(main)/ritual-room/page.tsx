@@ -2,12 +2,26 @@ import { FeedWrapper } from "@/components/feed-wrapper";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
 import { LunaCompanion } from "@/components/luna-companion";
-import { getUserProgress, getUserSubscription } from "@/db/queries";
-import { redirect } from "next/navigation";
 
-const RitualRoomPage = async () => {
-  const userProgress = await getUserProgress();
-  const userSubscription = await getUserSubscription();
+// Mock data for ritual-room page
+const mockUserProgress = {
+  activeCourse: {
+    id: 1,
+    title: "English Wellness",
+    imageSrc: "/us.svg",
+  },
+  hearts: 5,
+  points: 250,
+  hasActiveSubscription: false,
+};
+
+const mockUserSubscription = {
+  isActive: false,
+};
+
+const RitualRoomPage = () => {
+  const userProgress = mockUserProgress;
+  const userSubscription = mockUserSubscription;
 
   const isPro = !!userSubscription?.isActive;
 
@@ -32,7 +46,7 @@ const RitualRoomPage = async () => {
       id: 2,
       title: "Water Cleansing Ritual",
       element: "💧",
-      duration: "15 min", 
+      duration: "15 min",
       description: "Release emotional blockages with flowing water energy",
       color: "from-blue-400 to-cyan-500",
       steps: [
@@ -97,7 +111,7 @@ const RitualRoomPage = async () => {
           />
         )}
       </StickyWrapper>
-      
+
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
           <div className="text-center mb-6">
@@ -106,28 +120,26 @@ const RitualRoomPage = async () => {
             </h1>
             <p className="text-gray-600">Connect with elemental energies through guided rituals</p>
           </div>
-          
+
           <LunaCompanion />
-          
+
           {/* Daily Ritual Schedule */}
           <div className="bg-white rounded-xl p-6 shadow-lg mb-8 w-full max-w-4xl">
             <h2 className="text-xl font-bold text-gray-800 mb-4">📅 Today's Ritual Schedule</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {dailyRituals.map((item, index) => (
-                <div key={index} className={`p-4 rounded-lg border-2 ${
-                  item.status === 'completed' ? 'bg-green-50 border-green-200' :
-                  item.status === 'pending' ? 'bg-blue-50 border-blue-200' :
-                  'bg-gray-50 border-gray-200'
-                }`}>
+                <div key={index} className={`p-4 rounded-lg border-2 ${item.status === 'completed' ? 'bg-green-50 border-green-200' :
+                    item.status === 'pending' ? 'bg-blue-50 border-blue-200' :
+                      'bg-gray-50 border-gray-200'
+                  }`}>
                   <div className="text-sm font-medium text-gray-600">{item.time}</div>
                   <div className="text-sm text-gray-800">{item.ritual}</div>
-                  <div className={`text-xs mt-1 ${
-                    item.status === 'completed' ? 'text-green-600' :
-                    item.status === 'pending' ? 'text-blue-600' :
-                    'text-gray-500'
-                  }`}>
+                  <div className={`text-xs mt-1 ${item.status === 'completed' ? 'text-green-600' :
+                      item.status === 'pending' ? 'text-blue-600' :
+                        'text-gray-500'
+                    }`}>
                     {item.status === 'completed' ? '✓ Complete' :
-                     item.status === 'pending' ? '○ Ready' : '🔒 Locked'}
+                      item.status === 'pending' ? '○ Ready' : '🔒 Locked'}
                   </div>
                 </div>
               ))}
@@ -148,7 +160,7 @@ const RitualRoomPage = async () => {
                   </div>
                   <p className="text-white/90">{ritual.description}</p>
                 </div>
-                
+
                 <div className="p-6">
                   <div className="mb-4">
                     <h4 className="font-semibold text-gray-800 mb-2">Ritual Steps:</h4>
@@ -161,7 +173,7 @@ const RitualRoomPage = async () => {
                       ))}
                     </ul>
                   </div>
-                  
+
                   <div className="mb-4">
                     <h4 className="font-semibold text-gray-800 mb-2">Benefits:</h4>
                     <div className="flex flex-wrap gap-2">
@@ -172,7 +184,7 @@ const RitualRoomPage = async () => {
                       ))}
                     </div>
                   </div>
-                  
+
                   <button className={`w-full bg-gradient-to-r ${ritual.color} text-white py-3 rounded-lg font-medium hover:opacity-90 transition-opacity`}>
                     🎧 Begin Guided Ritual
                   </button>

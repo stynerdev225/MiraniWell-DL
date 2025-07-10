@@ -1,11 +1,11 @@
-import Database from "better-sqlite3";
-import { drizzle } from "drizzle-orm/better-sqlite3";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 import "dotenv/config";
 
-import * as schema from "@/db/schema";
+import * as schema from "@/db/schema-postgres";
 
-const sqlite = new Database(process.env.DATABASE_URL?.replace("file:", "") || "./local.db");
-const db = drizzle(sqlite, { schema });
+const sql = neon(process.env.DATABASE_URL || "");
+const db = drizzle(sql, { schema });
 
 const main = async () => {
   try {

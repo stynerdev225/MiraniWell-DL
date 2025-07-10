@@ -1,15 +1,15 @@
 import { cache } from "react";
 
 import { auth } from "@clerk/nextjs/server";
-import Database from "better-sqlite3";
+import { neon } from "@neondatabase/serverless";
 import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/better-sqlite3";
+import { drizzle } from "drizzle-orm/neon-http";
 
-import * as schema from "./schema-sqlite";
+import * as schema from "./schema-postgres";
 
-// Use SQLite for local development
-const sqlite = new Database(process.env.DATABASE_URL?.replace("file:", "") || "./local.db");
-const db = drizzle(sqlite, { schema });
+// Use Neon PostgreSQL
+const sql = neon(process.env.DATABASE_URL || "");
+const db = drizzle(sql, { schema });
 
 const {
   challengeProgress,

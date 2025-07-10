@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { LanguageToggle } from "@/components/language-toggle";
@@ -9,11 +8,6 @@ import { StickyWrapper } from "@/components/sticky-wrapper";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { UserProgress } from "@/components/user-progress";
-import {
-  getTopTenUsers,
-  getUserProgress,
-  getUserSubscription,
-} from "@/db/queries";
 
 type LeaderboardUser = {
   userId: string;
@@ -22,22 +16,89 @@ type LeaderboardUser = {
   points: number;
 };
 
-const LeaderboardPage = async () => {
-  const userProgressData = getUserProgress();
-  const userSubscriptionData = getUserSubscription();
-  const leaderboardData = getTopTenUsers();
+// Mock data for leaderboard
+const mockUserProgress = {
+  activeCourse: {
+    id: 1,
+    title: "English Wellness",
+    imageSrc: "/us.svg",
+  },
+  hearts: 5,
+  points: 250,
+  hasActiveSubscription: false,
+};
 
-  const [userProgress, userSubscription, leaderboard] = await Promise.all([
-    userProgressData,
-    userSubscriptionData,
-    leaderboardData,
-  ]) as [
-      Awaited<ReturnType<typeof getUserProgress>>,
-      Awaited<ReturnType<typeof getUserSubscription>>,
-      LeaderboardUser[]
-    ];
+const mockUserSubscription = {
+  isActive: false,
+};
 
-  if (!userProgress || !userProgress.activeCourse) redirect("/courses");
+const mockLeaderboard: LeaderboardUser[] = [
+  {
+    userId: "user_1",
+    userImageSrc: "/boy.svg",
+    userName: "Alex Chen",
+    points: 1250,
+  },
+  {
+    userId: "user_2",
+    userImageSrc: "/girl.svg",
+    userName: "Sarah Johnson",
+    points: 1180,
+  },
+  {
+    userId: "user_3",
+    userImageSrc: "/man.svg",
+    userName: "Michael Rodriguez",
+    points: 1050,
+  },
+  {
+    userId: "user_4",
+    userImageSrc: "/face-1.svg",
+    userName: "Emma Wilson",
+    points: 980,
+  },
+  {
+    userId: "user_5",
+    userImageSrc: "/face-2.svg",
+    userName: "David Kim",
+    points: 875,
+  },
+  {
+    userId: "user_6",
+    userImageSrc: "/face-3.svg",
+    userName: "Jessica Martinez",
+    points: 720,
+  },
+  {
+    userId: "user_7",
+    userImageSrc: "/face-4.svg",
+    userName: "Ryan Taylor",
+    points: 650,
+  },
+  {
+    userId: "user_8",
+    userImageSrc: "/boy.svg",
+    userName: "Sofia Anderson",
+    points: 580,
+  },
+  {
+    userId: "user_9",
+    userImageSrc: "/girl.svg",
+    userName: "Lucas Thompson",
+    points: 420,
+  },
+  {
+    userId: "user_10",
+    userImageSrc: "/man.svg",
+    userName: "Isabella Garcia",
+    points: 380,
+  },
+];
+
+const LeaderboardPage = () => {
+  const userProgress = mockUserProgress;
+  const userSubscription = mockUserSubscription;
+  const leaderboard = mockLeaderboard;
 
   const isPro = !!userSubscription?.isActive;
 

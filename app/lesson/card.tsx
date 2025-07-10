@@ -70,7 +70,7 @@ export const Card = ({
     <div
       onClick={handleClick}
       className={cn(
-        "h-full cursor-pointer rounded-xl border-2 border-b-4 p-4 hover:bg-black/5 active:border-b-2 lg:p-6",
+        "h-full cursor-pointer rounded-xl border-2 border-b-4 p-8 hover:bg-black/5 active:border-b-2 lg:p-10",
         selected && "border-sky-300 bg-sky-100 hover:bg-sky-100",
         selected &&
         status === "correct" &&
@@ -79,11 +79,11 @@ export const Card = ({
         status === "wrong" &&
         "border-rose-300 bg-rose-100 hover:bg-rose-100",
         disabled && "pointer-events-none hover:bg-white",
-        type === "ASSIST" && "w-full lg:p-3"
+        type === "ASSIST" && "w-full lg:p-8 min-h-[140px]"
       )}
     >
       {imageSrc && (
-        <div className="relative mb-4 aspect-square max-h-[80px] w-full lg:max-h-[150px]">
+        <div className="relative mb-6 aspect-square max-h-[120px] w-full lg:max-h-[180px]">
           <Image src={imageSrc} fill alt={text} priority />
         </div>
       )}
@@ -97,7 +97,7 @@ export const Card = ({
         {type === "ASSIST" && <div aria-hidden />}
         <p
           className={cn(
-            "text-sm text-neutral-600 lg:text-base",
+            "text-lg text-neutral-600 lg:text-xl font-medium leading-relaxed text-center",
             selected && "text-sky-500",
             selected && status === "correct" && "text-green-500",
             selected && status === "wrong" && "text-rose-500"
@@ -108,7 +108,7 @@ export const Card = ({
 
         <div
           className={cn(
-            "flex h-[20px] w-[20px] items-center justify-center rounded-lg border-2 text-xs font-semibold text-neutral-400 lg:h-[30px] lg:w-[30px] lg:text-[15px]",
+            "flex h-[30px] w-[30px] items-center justify-center rounded-lg border-2 text-sm font-semibold text-neutral-400 lg:h-[40px] lg:w-[40px] lg:text-[18px]",
             selected && "border-sky-300 text-sky-500",
             selected &&
             status === "correct" &&

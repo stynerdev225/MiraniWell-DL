@@ -6,9 +6,9 @@ if (!process.env.DATABASE_URL) {
 }
 
 const config: Config = {
-  schema: "./db/schema-sqlite.ts",
+  schema: "./db/schema-postgres.ts",
   out: "./drizzle",
-  dialect: "sqlite",
+  dialect: "postgresql",
   dbCredentials: {
     url: process.env.DATABASE_URL,
   },
