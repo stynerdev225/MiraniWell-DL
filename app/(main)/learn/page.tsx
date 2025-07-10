@@ -15,12 +15,6 @@ import {
   getUserProgress,
   getUserSubscription,
 } from "@/db/queries";
-import type {
-  UnitWithLessons,
-  CourseProgressData,
-  UserProgressWithCourse,
-  UserSubscriptionWithStatus,
-} from "@/types/database";
 
 import { Header } from "./header";
 import { WellnessUnit } from "./wellness-unit";
@@ -45,74 +39,73 @@ const LoadingSkeleton = () => (
 );
 
 const LearnPage = async () => {
-  const [
-    userProgress,
-    units,
-    courseProgress,
-    lessonPercentage,
-    userSubscription,
-  ] = await Promise.all([
-    getUserProgress(),
-    getUnits(),
-    getCourseProgress(),
-    getLessonPercentage(),
-    getUserSubscription(),
-  ]) as [
-    UserProgressWithCourse | null,
-    UnitWithLessons[],
-    CourseProgressData | null,
-    number,
-    UserSubscriptionWithStatus | null,
-  ];
+  try {
+    const [
+      userProgress,
+      units,
+      courseProgress,
+      lessonPercentage,
+      userSubscription,
+    ] = await Promise.all([
+      getUserProgress(),
+      getUnits(),
+      getCourseProgress(),
+      getLessonPercentage(),
+      getUserSubscription(),
+    ]);
 
-  if (!courseProgress || !userProgress || !userProgress.activeCourse)
-    redirect("/courses");
+    if (!courseProgress || !userProgress || !userProgress.activeCourse)
+      redirect("/courses");
 
-  const isPro = !!userSubscription?.isActive;
+    const isPro = !!userSubscription?.isActive;
 
-  return (
-    <Suspense fallback={<LoadingSkeleton />}>
-      <div className="flex flex-row-reverse gap-[48px] px-6">
-        <StickyWrapper>
-          <UserProgress
-            activeCourse={userProgress.activeCourse}
-            hearts={userProgress.hearts}
-            points={userProgress.points}
-            hasActiveSubscription={isPro}
-          />
+    return (
+      <Suspense fallback={<LoadingSkeleton />}>
+        <div className="flex flex-row-reverse gap-[48px] px-6">
+          <StickyWrapper>
+            <UserProgress
+              activeCourse={userProgress.activeCourse}
+              hearts={userProgress.hearts}
+              points={userProgress.points}
+              hasActiveSubscription={isPro}
+            />
 
-          {!isPro && <Promo />}
-          <Quests points={userProgress?.points || 0} />
-        </StickyWrapper>
-        <FeedWrapper>
-          <Header title="Your Wellness Journey with Luna" />
-          <LunaCompanion />
-          {units.map((unit) => (
-            <div key={unit.id} className="mb-10">
-              <WellnessUnit
-                id={unit.id}
-                order={unit.order}
-                description={unit.description}
-                title={unit.title}
-                lessons={unit.lessons}
-                activeLesson={
-                  courseProgress.activeLesson
-                    ? {
+            {!isPro && <Promo />}
+            <Quests points={userProgress?.points || 0} />
+          </StickyWrapper>
+          <FeedWrapper>
+            <Header title="Your Wellness Journey with Luna" />
+            <LunaCompanion />
+            {units.map((unit) => (
+              <div key={unit.id} className="mb-10">
+                <WellnessUnit
+                  id={unit.id}
+                  order={unit.order}
+                  description={unit.description}
+                  title={unit.title}
+                  lessons={unit.lessons}
+                  activeLesson={
+                    courseProgress.activeLesson
+                      ? {
                         ...courseProgress.activeLesson,
                         challenges: courseProgress.activeLesson.challenges.flatMap((challenge) =>
                           Array.isArray(challenge.challengeProgress) ? challenge.challengeProgress : []
                         ),
                       }
-                    : undefined
-                }
-                activeLessonPercentage={lessonPercentage}
-              />
-            </div>
-          ))}
-        </FeedWrapper>
-      </div>
-    </Suspense>
-  );
+                      : undefined
+                  }
+                  activeLessonPercentage={lessonPercentage}
+                />
+              </div>
+            ))}
+          </FeedWrapper>
+        </div>
+      </Suspense>
+    );
+  } catch (error) {
+    console.error('Learn page error:', error);
+    redirect("/courses");
+  }
 };
 
 export default LearnPage;

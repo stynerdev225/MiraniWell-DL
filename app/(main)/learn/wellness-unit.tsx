@@ -1,6 +1,7 @@
 "use client";
 
-import { lessons, challengeProgress } from "@/db/schema";
+import { lessons, challengeProgress } from "@/db/schema-sqlite";
+
 import { WellnessButton } from "./wellness-button";
 
 type Props = {
@@ -12,10 +13,10 @@ type Props = {
     completed: boolean;
   })[];
   activeLesson:
-    | (typeof lessons.$inferSelect & {
-        challenges: (typeof challengeProgress.$inferSelect)[];
-      })
-    | undefined;
+  | (typeof lessons.$inferSelect & {
+    challenges: (typeof challengeProgress.$inferSelect)[];
+  })
+  | undefined;
   activeLessonPercentage: number;
 };
 
@@ -46,7 +47,7 @@ export const WellnessUnit = ({
   const elementColor = elementalColors[order as keyof typeof elementalColors] || "from-purple-400 to-pink-500";
 
   return (
-    <div className="relative">
+    <div id={`wellness-unit-${id}`} className="relative">
       <div className="flex items-center justify-between mb-5">
         <div className={`bg-gradient-to-r ${elementColor} rounded-xl p-4 shadow-lg`}>
           <div className="flex items-center gap-3">
@@ -69,7 +70,6 @@ export const WellnessUnit = ({
               key={lesson.id}
               id={lesson.id}
               index={index}
-              totalCount={lessons.length}
               locked={isLocked}
               current={isCurrent}
               percentage={activeLessonPercentage}

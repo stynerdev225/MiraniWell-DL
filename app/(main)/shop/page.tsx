@@ -2,6 +2,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
+import { LanguageToggle } from "@/components/language-toggle";
 import { Quests } from "@/components/quests";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
@@ -37,11 +38,14 @@ const ShopPage = async () => {
 
       <FeedWrapper>
         <div className="flex w-full flex-col items-center">
+          <div className="sticky top-0 mb-5 flex w-full items-center justify-between border-b-2 bg-white pb-3 text-neutral-400 lg:z-50 lg:mt-[-28px] lg:pt-[28px]">
+            <div aria-hidden />
+            <h1 className="text-lg font-bold text-neutral-800">Shop</h1>
+            <LanguageToggle />
+          </div>
+
           <Image src="/shop.svg" alt="Shop" height={90} width={90} />
 
-          <h1 className="my-6 text-center text-2xl font-bold text-neutral-800">
-            Shop
-          </h1>
           <p className="mb-6 text-center text-lg text-muted-foreground">
             Spend your points on cool stuff.
           </p>

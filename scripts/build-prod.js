@@ -122,40 +122,49 @@ const main = async () => {
         INSERT INTO courses (title, image_src) VALUES 
         ('Spanish', '/es.svg'),
         ('French', '/fr.svg'),
-        ('Croatian', '/hr.svg'),
         ('Italian', '/it.svg'),
-        ('Japanese', '/jp.svg')
+        ('German', '/de.svg')
       `;
 
-      // Get the Spanish course ID and create initial content
+      // Get the Spanish course ID and create wellness content
       const spanishCourse = await sql`SELECT id FROM courses WHERE title = 'Spanish' LIMIT 1`;
       const courseId = spanishCourse[0].id;
 
       await sql`
         INSERT INTO units (title, description, course_id, "order") VALUES 
-        ('Unit 1', 'Learn the basics', ${courseId}, 1)
+        ('Mindfulness Basics', 'Learn fundamental wellness practices', ${courseId}, 1),
+        ('Emotional Healing', 'Process and heal emotions', ${courseId}, 2)
       `;
 
-      const unit = await sql`SELECT id FROM units WHERE course_id = ${courseId} LIMIT 1`;
-      const unitId = unit[0].id;
+      const units = await sql`SELECT id FROM units WHERE course_id = ${courseId} ORDER BY "order"`;
+      const unit1Id = units[0].id;
+      const unit2Id = units[1].id;
 
       await sql`
         INSERT INTO lessons (title, unit_id, "order") VALUES 
-        ('Nouns', ${unitId}, 1)
+        ('Breathing Meditation', ${unit1Id}, 1),
+        ('Body Awareness', ${unit1Id}, 2),
+        ('Emotional Release', ${unit2Id}, 1),
+        ('Heart Healing', ${unit2Id}, 2)
       `;
 
-      const lesson = await sql`SELECT id FROM lessons WHERE unit_id = ${unitId} LIMIT 1`;
-      const lessonId = lesson[0].id;
+      const lessons = await sql`SELECT id FROM lessons ORDER BY id`;
+      
+      // Add challenges for each lesson
+      for (let i = 0; i < lessons.length; i++) {
+        const lessonId = lessons[i].id;
+        await sql`
+          INSERT INTO challenges (lesson_id, type, question, "order") VALUES 
+          (${lessonId}, 'SELECT', 'What is the first step in mindful breathing?', 1),
+          (${lessonId}, 'SELECT', 'How do you feel after this practice?', 2)
+        `;
+      }
 
-      await sql`
-        INSERT INTO challenges (lesson_id, type, question, "order") VALUES 
-        (${lessonId}, 'SELECT', 'Which one of these is "the man"?', 1)
-      `;
-
-      console.log("✅ Initial data seeded successfully");
+      console.log("✅ Wellness content seeded successfully");
     } else {
       console.log(`✅ Database already contains ${courseCount} courses`);
     }
+
 
     console.log("🎉 Production database setup complete!");
     

@@ -9,10 +9,6 @@ const MindBodySpiritPage = async () => {
   const userProgress = await getUserProgress();
   const userSubscription = await getUserSubscription();
 
-  if (!userProgress || !userProgress.activeCourse) {
-    redirect("/courses");
-  }
-
   const isPro = !!userSubscription?.isActive;
 
   const todayProgress = {
@@ -126,12 +122,14 @@ const MindBodySpiritPage = async () => {
   return (
     <div className="flex flex-row-reverse gap-[48px] px-6">
       <StickyWrapper>
-        <UserProgress
-          activeCourse={userProgress.activeCourse}
-          hearts={userProgress.hearts}
-          points={userProgress.points}
-          hasActiveSubscription={isPro}
-        />
+        {userProgress && (
+          <UserProgress
+            activeCourse={userProgress.activeCourse}
+            hearts={userProgress.hearts}
+            points={userProgress.points}
+            hasActiveSubscription={isPro}
+          />
+        )}
       </StickyWrapper>
       
       <FeedWrapper>

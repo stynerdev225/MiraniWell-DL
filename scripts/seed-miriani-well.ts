@@ -2,7 +2,7 @@ import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import "dotenv/config";
 
-import * as schema from "@/db/schema";
+import * as schema from "../db/schema-sqlite";
 
 const sqlite = new Database(process.env.DATABASE_URL?.replace("file:", "") || "./local.db");
 const db = drizzle(sqlite, { schema });
@@ -48,27 +48,21 @@ const main = async () => {
           },
           {
             courseId: course.id,
-            title: "💧 Water Element - Emotional Healing",
-            description: "Learn emotional cleansing and flow practices for emotional wellness",
+            title: "💧 Water Element - Emotional Healing & Flow",
+            description: "Learn emotional cleansing and flow practices for deep emotional wellness and healing",
             order: 2,
           },
           {
             courseId: course.id,
             title: "🔥 Fire Element - Energy & Transformation",
-            description: "Harness passion and energy for personal transformation and motivation",
+            description: "Harness passion and energy for personal transformation, motivation, and inner power",
             order: 3,
           },
           {
             courseId: course.id,
-            title: "💨 Air Element - Mental Clarity",
-            description: "Develop breathwork and meditation for mental clarity and communication",
+            title: "💨 Air Element - Mental Clarity & Breathwork",
+            description: "Develop breathwork and meditation for mental clarity, communication, and spiritual connection",
             order: 4,
-          },
-          {
-            courseId: course.id,
-            title: "🤖 Luna AI Companion Integration",
-            description: "Learn to work with Luna AI for personalized wellness guidance",
-            order: 5,
           },
         ])
         .returning();
@@ -80,38 +74,34 @@ const main = async () => {
           .values([
             {
               unitId: unit.id,
-              title: unit.order === 1 ? "Introduction to Grounding" : 
-                     unit.order === 2 ? "Understanding Emotions" :
-                     unit.order === 3 ? "Energy Awareness" :
-                     unit.order === 4 ? "Breath as Foundation" :
-                     "Meeting Luna AI",
+              title: unit.order === 1 ? "Introduction to Earth Grounding" : 
+                     unit.order === 2 ? "Understanding Water & Emotions" :
+                     unit.order === 3 ? "Awakening Your Inner Fire" :
+                     "Connecting with Air & Breath",
               order: 1,
             },
             {
               unitId: unit.id,
-              title: unit.order === 1 ? "Basic Grounding Exercises" : 
-                     unit.order === 2 ? "Emotional Cleansing Rituals" :
-                     unit.order === 3 ? "Motivation Building" :
-                     unit.order === 4 ? "Basic Meditation" :
-                     "Personalized Wellness Plans",
+              title: unit.order === 1 ? "Earth Grounding Exercises" : 
+                     unit.order === 2 ? "Water Emotional Cleansing" :
+                     unit.order === 3 ? "Fire Energy Building" :
+                     "Air Breathing & Meditation",
               order: 2,
             },
             {
               unitId: unit.id,
-              title: unit.order === 1 ? "Stability Practices" : 
-                     unit.order === 2 ? "Flow State Techniques" :
-                     unit.order === 3 ? "Transformation Rituals" :
-                     unit.order === 4 ? "Mental Clarity Exercises" :
-                     "AI-Guided Reflection",
+              title: unit.order === 1 ? "Earth Stability & Manifestation" : 
+                     unit.order === 2 ? "Water Flow State Mastery" :
+                     unit.order === 3 ? "Fire Transformation Rituals" :
+                     "Air Mental Clarity & Focus",
               order: 3,
             },
             {
               unitId: unit.id,
-              title: unit.order === 1 ? "Manifestation Basics" : 
-                     unit.order === 2 ? "Advanced Emotional Work" :
-                     unit.order === 3 ? "Passion & Purpose" :
-                     unit.order === 4 ? "Communication Enhancement" :
-                     "Progress Tracking with Luna",
+              title: unit.order === 1 ? "Earth Wisdom & Integration" : 
+                     unit.order === 2 ? "Water Advanced Emotional Alchemy" :
+                     unit.order === 3 ? "Fire Passion & Life Purpose" :
+                     "Air Communication & Spiritual Connection",
               order: 4,
             },
           ])
@@ -205,90 +195,78 @@ const main = async () => {
 // Helper functions for wellness content
 function getWellnessQuestion(unitOrder: number, lessonOrder: number, challengeOrder: number): string {
   const questions = {
-    1: { // Earth Element
-      1: ["What is the primary benefit of grounding exercises?", "Which practice helps with stability?", "How do you connect with earth energy?"],
-      2: ["What is a basic grounding technique?", "How long should you practice grounding?", "What helps you feel more stable?"],
-      3: ["What supports emotional stability?", "Which practice builds resilience?", "How do you maintain balance?"],
-      4: ["What is the foundation of manifestation?", "How do you set clear intentions?", "What supports goal achievement?"],
+    1: { // 🌱 Earth Element - Grounding & Stability
+      1: ["What is the primary benefit of earth grounding?", "How do you connect with earth's stability?", "What grounds you to the present moment?"],
+      2: ["What is a powerful earth grounding technique?", "How do you practice earth connection?", "What helps you feel rooted and stable?"],
+      3: ["What supports earth-based manifestation?", "How do you build lasting stability?", "What creates solid foundations in life?"],
+      4: ["How do you integrate earth wisdom?", "What is earth's greatest teaching?", "How do you embody earthly groundedness?"],
     },
-    2: { // Water Element
-      1: ["What does emotional cleansing involve?", "How do you process emotions healthily?", "What helps with emotional flow?"],
-      2: ["What is an emotional cleansing ritual?", "How do you release negative emotions?", "What supports emotional healing?"],
-      3: ["What is flow state?", "How do you achieve emotional balance?", "What helps with adaptability?"],
-      4: ["What is advanced emotional work?", "How do you transform emotions?", "What supports deep healing?"],
+    2: { // 💧 Water Element - Emotional Healing & Flow
+      1: ["What does water teach about emotions?", "How does water element heal?", "What is emotional fluidity?"],
+      2: ["What is water's cleansing power?", "How do you practice emotional flow?", "What helps release stuck emotions?"],
+      3: ["What is water's flow state?", "How do you master emotional currents?", "What creates emotional harmony?"],
+      4: ["What is emotional alchemy?", "How do you transform emotions like water?", "What is water's deepest wisdom?"],
     },
-    3: { // Fire Element
-      1: ["What is energy awareness?", "How do you recognize your energy levels?", "What affects your vitality?"],
-      2: ["What builds motivation?", "How do you increase energy?", "What supports personal power?"],
-      3: ["What is a transformation ritual?", "How do you facilitate change?", "What supports growth?"],
-      4: ["How do you discover your passion?", "What connects you to purpose?", "How do you live authentically?"],
+    3: { // 🔥 Fire Element - Energy & Transformation
+      1: ["What is fire's transformative power?", "How does fire element energize?", "What ignites your inner flame?"],
+      2: ["How do you build fire energy?", "What fuels your inner fire?", "How do you kindle motivation?"],
+      3: ["What are fire transformation rituals?", "How does fire facilitate change?", "What supports fiery growth?"],
+      4: ["How do you embody fire's passion?", "What is fire's gift to purpose?", "How do you live with fiery authenticity?"],
     },
-    4: { // Air Element
-      1: ["What is the foundation of breathwork?", "How does breathing affect wellness?", "What is mindful breathing?"],
-      2: ["What is basic meditation?", "How do you start meditating?", "What supports mental calm?"],
-      3: ["What creates mental clarity?", "How do you focus your mind?", "What supports clear thinking?"],
-      4: ["What enhances communication?", "How do you express yourself clearly?", "What supports authentic expression?"],
-    },
-    5: { // Luna AI
-      1: ["What is Luna AI?", "How does Luna support wellness?", "What makes Luna unique?"],
-      2: ["How do you create a wellness plan?", "What should be included in your plan?", "How do you track progress?"],
-      3: ["What is AI-guided reflection?", "How does Luna help with insights?", "What supports self-awareness?"],
-      4: ["How do you track wellness progress?", "What metrics matter most?", "How do you stay motivated?"],
+    4: { // 💨 Air Element - Mental Clarity & Breathwork
+      1: ["What is air's gift to the mind?", "How does breath create clarity?", "What is mindful breathing?"],
+      2: ["How does air support meditation?", "What is breath-centered practice?", "How do you cultivate mental calm?"],
+      3: ["What creates air-like mental clarity?", "How do you focus like the wind?", "What supports clear thinking?"],
+      4: ["How does air enhance communication?", "What is breath-supported expression?", "How do you speak with air's clarity?"],
     },
   };
 
-  return questions[unitOrder as keyof typeof questions]?.[lessonOrder as keyof typeof questions[1]]?.[challengeOrder - 1] || "What supports your wellness journey?";
+  return questions[unitOrder as keyof typeof questions]?.[lessonOrder as keyof typeof questions[1]]?.[challengeOrder - 1] || "What supports your elemental wellness journey?";
 }
 
 function getCorrectAnswer(unitOrder: number, lessonOrder: number, challengeOrder: number): string {
   const answers = {
-    1: { // Earth Element
-      1: ["Feeling more grounded and stable", "Deep breathing and connection to earth", "Placing feet on the ground mindfully"],
-      2: ["Standing barefoot on grass or soil", "5-10 minutes daily", "Regular grounding practice"],
-      3: ["Consistent daily routines", "Grounding and stability exercises", "Mindful connection to earth"],
-      4: ["Clear, focused intention", "Writing down specific goals", "Belief in your ability to achieve"],
+    1: { // 🌱 Earth Element - Grounding & Stability  
+      1: ["Deep rootedness and inner stability", "Physical connection to earth's energy", "Present moment awareness through grounding"],
+      2: ["Barefoot walking on natural earth", "Meditation sitting on the ground", "Tree hugging and earth connection"],
+      3: ["Earth's steady, consistent energy", "Building foundations before growing", "Patient, deliberate manifestation"],
+      4: ["Embodying earth's patience and wisdom", "Staying grounded through all seasons", "Being a stable presence for others"],
     },
-    2: { // Water Element
-      1: ["Releasing stored emotions safely", "Allowing emotions to flow naturally", "Emotional acceptance and processing"],
-      2: ["Journaling and releasing ceremony", "Breathwork and movement", "Meditation and reflection"],
-      3: ["Being present with emotions", "Emotional flexibility and adaptation", "Acceptance of change"],
-      4: ["Shadow work and integration", "Emotional pattern recognition", "Deep trauma healing"],
+    2: { // 💧 Water Element - Emotional Healing & Flow
+      1: ["Emotions flow and change naturally", "Water cleanses and purifies", "Adaptability and emotional fluidity"],
+      2: ["Sacred water cleansing ceremonies", "Letting emotions flow like rivers", "Release through tears and movement"],
+      3: ["Moving with life's natural rhythms", "Emotional adaptability and grace", "Finding peace in constant change"],
+      4: ["Transforming pain into wisdom", "Emotional mastery through flow", "Water's teaching of surrender"],
     },
-    3: { // Fire Element
-      1: ["Noticing energy fluctuations", "Recognizing what drains or energizes", "Body awareness and vitality"],
-      2: ["Setting inspiring goals", "Physical movement and exercise", "Connecting with passion"],
-      3: ["Ritual for releasing old patterns", "Conscious change and growth", "Embracing transformation"],
-      4: ["Following what lights you up", "Aligning with your values", "Living true to yourself"],
+    3: { // 🔥 Fire Element - Energy & Transformation
+      1: ["Fire transforms everything it touches", "Inner flame ignites motivation", "Passionate energy creates change"],
+      2: ["Movement and physical activation", "Connecting with your life passion", "Solar energy and fire meditation"],
+      3: ["Sacred fire ceremonies for release", "Burning away what no longer serves", "Phoenix-like transformation"],
+      4: ["Living with passionate purpose", "Fire's gift of authentic expression", "Radiating your inner light"],
     },
-    4: { // Air Element
-      1: ["Conscious, intentional breathing", "Breath as life force energy", "Awareness of breath patterns"],
-      2: ["Focusing on breath or mantra", "5-10 minutes of quiet sitting", "Consistent daily practice"],
-      3: ["Meditation and mindfulness", "Reducing mental clutter", "Present moment awareness"],
-      4: ["Speaking from the heart", "Listening actively to others", "Authentic self-expression"],
-    },
-    5: { // Luna AI
-      1: ["Your AI wellness companion", "Personalized guidance and support", "Available 24/7 for wellness help"],
-      2: ["Goals, practices, and tracking", "Personalized to your needs", "Regular check-ins and adjustments"],
-      3: ["AI-powered self-discovery", "Pattern recognition and insights", "Guided questions and reflection"],
-      4: ["Regular wellness metrics", "Mood, energy, and growth", "Celebrating progress and milestones"],
+    4: { // 💨 Air Element - Mental Clarity & Breathwork
+      1: ["Breath brings clarity and focus", "Air connects mind and spirit", "Conscious breathing calms the mind"],
+      2: ["Breath-centered meditation practice", "Pranayama and breathing techniques", "Air's gift of mental spaciousness"],
+      3: ["Wind-like mental flexibility", "Clear thoughts like fresh air", "Mental clarity through breathwork"],
+      4: ["Breath-supported authentic speaking", "Air's gift of true communication", "Speaking from the heart with clarity"],
     },
   };
 
-  return answers[unitOrder as keyof typeof answers]?.[lessonOrder as keyof typeof answers[1]]?.[challengeOrder - 1] || "Consistent practice and self-awareness";
+  return answers[unitOrder as keyof typeof answers]?.[lessonOrder as keyof typeof answers[1]]?.[challengeOrder - 1] || "Consistent elemental practice and awareness";
 }
 
 function getIncorrectAnswer(unitOrder: number, lessonOrder: number, challengeOrder: number, option: number): string {
   const wrongAnswers = [
-    "Ignoring your feelings completely",
-    "Avoiding all self-reflection",
-    "Expecting instant results",
-    "Comparing yourself to others",
-    "Skipping regular practice",
-    "Focusing only on problems",
-    "Rushing through exercises",
-    "Avoiding emotional work",
-    "Neglecting physical wellness",
-    "Ignoring your intuition",
+    "Ignoring the natural elements",
+    "Forcing outcomes instead of flowing",
+    "Avoiding emotional connection",
+    "Rushing through practices",
+    "Skipping elemental connection",
+    "Focusing only on one element", 
+    "Avoiding transformation work",
+    "Neglecting breath awareness",
+    "Comparing your elemental journey",
+    "Expecting instant mastery",
   ];
 
   return wrongAnswers[(unitOrder + lessonOrder + challengeOrder + option) % wrongAnswers.length];

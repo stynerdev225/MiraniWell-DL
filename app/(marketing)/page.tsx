@@ -22,6 +22,13 @@ export default function MarketingPage() {
           </h1>
 
           <div className="flex w-full max-w-[330px] flex-col items-center gap-y-3">
+            {/* Direct access button - bypass login */}
+            <Link href="/learn">
+              <Button size="lg" variant="default" className="w-full bg-green-600 hover:bg-green-700 text-white font-bold">
+                🚀 Direct Access - Try Now!
+              </Button>
+            </Link>
+
             {/* Temporary authentication bypass for marketing pages */}
             <Link href="/sign-up">
               <Button size="lg" variant="secondary" className="w-full">

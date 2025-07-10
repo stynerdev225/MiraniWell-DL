@@ -1,0 +1,13 @@
+.wellness-button-positioned {
+  position: relative;
+}
+
+.wellness-button-positioned[data-right-position="0"] { right: 0px; }
+.wellness-button-positioned[data-right-position="40"] { right: 40px; }
+.wellness-button-positioned[data-right-position="80"] { right: 80px; }
+.wellness-button-positioned[data-right-position="120"] { right: 120px; }
+.wellness-button-positioned[data-right-position="160"] { right: 160px; }
+.wellness-button-positioned[data-right-position="200"] { right: 200px; }
+.wellness-button-positioned[data-right-position="240"] { right: 240px; }
+.wellness-button-positioned[data-right-position="280"] { right: 280px; }
+.wellness-button-positioned[data-right-position="320"] { right: 320px; }

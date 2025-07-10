@@ -18,7 +18,7 @@ export const Footer = ({
   lessonId,
 }: FooterProps) => {
   useKey("Enter", onCheck, {}, [onCheck]);
-  const isMobile = useMedia("(max-width: 1024px)");
+  const isMobile = useMedia("(max-width: 1024px)", false);
 
   return (
     <footer

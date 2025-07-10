@@ -2,6 +2,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
+import { LanguageToggle } from "@/components/language-toggle";
 import { Promo } from "@/components/promo";
 import { Quests } from "@/components/quests";
 import { StickyWrapper } from "@/components/sticky-wrapper";
@@ -14,6 +15,13 @@ import {
   getUserSubscription,
 } from "@/db/queries";
 
+type LeaderboardUser = {
+  userId: string;
+  userImageSrc: string;
+  userName: string;
+  points: number;
+};
+
 const LeaderboardPage = async () => {
   const userProgressData = getUserProgress();
   const userSubscriptionData = getUserSubscription();
@@ -23,7 +31,11 @@ const LeaderboardPage = async () => {
     userProgressData,
     userSubscriptionData,
     leaderboardData,
-  ]);
+  ]) as [
+      Awaited<ReturnType<typeof getUserProgress>>,
+      Awaited<ReturnType<typeof getUserSubscription>>,
+      LeaderboardUser[]
+    ];
 
   if (!userProgress || !userProgress.activeCourse) redirect("/courses");
 
@@ -44,6 +56,12 @@ const LeaderboardPage = async () => {
 
       <FeedWrapper>
         <div className="flex w-full flex-col items-center">
+          <div className="sticky top-0 mb-5 flex w-full items-center justify-between border-b-2 bg-white pb-3 text-neutral-400 lg:z-50 lg:mt-[-28px] lg:pt-[28px]">
+            <div aria-hidden />
+            <h1 className="text-lg font-bold text-neutral-800">Leaderboard</h1>
+            <LanguageToggle />
+          </div>
+
           <Image
             src="/leaderboard.svg"
             alt="Leaderboard"
@@ -51,9 +69,6 @@ const LeaderboardPage = async () => {
             width={90}
           />
 
-          <h1 className="my-6 text-center text-2xl font-bold text-neutral-800">
-            Leaderboard
-          </h1>
           <p className="mb-6 text-center text-lg text-muted-foreground">
             See where you stand among other learners in the community.
           </p>

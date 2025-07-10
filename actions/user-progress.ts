@@ -1,18 +1,24 @@
 "use server";
 
 import { auth, currentUser } from "@clerk/nextjs/server";
+import Database from "better-sqlite3";
 import { and, eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/better-sqlite3";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { MAX_HEARTS, POINTS_TO_REFILL } from "@/constants";
-import db from "@/db/drizzle";
 import {
   getCourseById,
   getUserProgress,
   getUserSubscription,
 } from "@/db/queries";
-import { challengeProgress, challenges, userProgress } from "@/db/schema";
+import * as schema from "@/db/schema-sqlite";
+
+const sqlite = new Database("./local.db");
+const db = drizzle(sqlite, { schema });
+
+const { challengeProgress, challenges, userProgress } = schema;
 
 export const upsertUserProgress = async (courseId: number) => {
   const { userId } = await auth();

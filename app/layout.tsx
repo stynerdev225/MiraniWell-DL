@@ -41,9 +41,8 @@ export default function RootLayout({
           colorPrimary: "#22C55E",
         },
       }}
-      afterSignInUrl="/daily-checkin"
-      afterSignUpUrl="/daily-checkin"
-      afterSignOutUrl="/"
+      signInFallbackRedirectUrl="/daily-checkin"
+      signUpFallbackRedirectUrl="/daily-checkin"
     >
       <html lang="en">
         <body className={font.className}>
