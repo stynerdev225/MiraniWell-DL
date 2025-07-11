@@ -4,6 +4,25 @@ export const siteConfig: Metadata = {
   title: "Miriani Well - AI Wellness Companion",
   description:
     "Your personalized AI wellness companion Luna provides 24/7 emotional support, elemental healing rituals, and guided spiritual growth. Combining ancient wisdom with modern AI technology.",
+  openGraph: {
+    type: "website",
+    title: "Miriani Well - AI Wellness Companion with Luna",
+    description: "Your personalized AI wellness companion Luna provides 24/7 emotional support, elemental healing rituals, and guided spiritual growth.",
+    images: [
+      {
+        url: "/img_main.png",
+        width: 1200,
+        height: 630,
+        alt: "Miriani Well - AI Wellness Companion with Luna"
+      }
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Miriani Well - AI Wellness Companion with Luna",
+    description: "Your personalized AI wellness companion Luna provides 24/7 emotional support, elemental healing rituals, and guided spiritual growth.",
+    images: ["/img_main.png"],
+  },
   keywords: [
     "reactjs",
     "nextjs",
