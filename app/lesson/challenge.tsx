@@ -23,7 +23,7 @@ export const Challenge = ({
   return (
     <div
       className={cn(
-        "grid gap-6",
+        "grid gap-6 w-full",
         type === "ASSIST" && "grid-cols-1 lg:grid-cols-2",
         type === "SELECT" &&
         "grid-cols-1 lg:grid-cols-2"

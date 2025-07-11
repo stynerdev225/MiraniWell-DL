@@ -8,7 +8,6 @@ import Confetti from "react-confetti";
 import { useAudio, useWindowSize, useMount } from "react-use";
 
 import { MAX_HEARTS } from "@/constants";
-import { useLanguage } from "@/contexts/LanguageContext";
 import { challengeOptions, challenges, userSubscription } from "@/db/schema";
 import { useHeartsModal } from "@/store/use-hearts-modal";
 import { usePracticeModal } from "@/store/use-practice-modal";
@@ -41,27 +40,6 @@ export const Quiz = ({
   initialLessonChallenges,
   userSubscription,
 }: QuizProps) => {
-  const { t, translateQuizContent } = useLanguage();
-
-  // Define types for quiz content
-  type QuizItem = {
-    text?: string;
-    question?: string;
-    translationKey?: string;
-  };
-
-  // Helper function to translate quiz content using translation keys if available
-  const getTranslatedContent = (item: QuizItem): string => {
-    if (item?.translationKey) {
-      const translation = t(item.translationKey);
-      if (translation !== item.translationKey) {
-        return translation;
-      }
-    }
-    // Use the general translation function as fallback
-    return translateQuizContent(item?.text || item?.question || '');
-  };
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [correctAudio, _c, correctControls] = useAudio({ src: "/correct.wav" });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -101,16 +79,7 @@ export const Quiz = ({
   const [status, setStatus] = useState<"none" | "wrong" | "correct">("none");
 
   const challenge = challenges[activeIndex];
-  const options = useMemo(() => {
-    return (challenge?.challengeOptions ?? []).map(option => {
-      // Type assertion to handle mock data with translationKey
-      const optionWithTranslation = option as typeof option & { translationKey?: string };
-      return {
-        ...option,
-        text: optionWithTranslation.translationKey ? t(optionWithTranslation.translationKey) : option.text
-      };
-    });
-  }, [challenge, t]);
+  const options = useMemo(() => challenge?.challengeOptions ?? [], [challenge]);
 
   const onNext = useCallback(() => {
     setActiveIndex((current) => current + 1);
@@ -214,7 +183,7 @@ export const Quiz = ({
           />
 
           <h1 className="text-lg font-bold text-neutral-700 lg:text-3xl">
-            {t('quiz.complete')} <br /> {t('quiz.congratulations')}
+            Great job! <br /> You&apos;ve completed the lesson.
           </h1>
 
           <div className="flex w-full items-center gap-x-4">
@@ -237,8 +206,8 @@ export const Quiz = ({
 
   const title =
     challenge.type === "ASSIST"
-      ? t("quiz.selectCorrectMeaning")
-      : getTranslatedContent(challenge);
+      ? "Select the correct meaning"
+      : challenge.question;
 
   return (
     <>
@@ -251,29 +220,28 @@ export const Quiz = ({
         hasActiveSubscription={!!userSubscription?.isActive}
       />
 
-      <div className="flex-1 py-4 w-full flex flex-col items-center justify-center px-4 relative z-10 overflow-visible">
-        {/* Title centered at top */}
-        <h1 className="text-center text-xl font-bold text-neutral-700 mb-6 lg:text-2xl max-w-[600px]">
-          {title}
-        </h1>
+      <div className="flex-1">
+        <div className="flex h-full items-center justify-center">
+          <div className="flex w-full flex-col gap-y-12 px-6 lg:min-h-[350px] lg:w-[600px] lg:px-0">
+            <h1 className="text-center text-lg font-bold text-neutral-700 lg:text-start lg:text-3xl">
+              {title}
+            </h1>
 
-        {/* Question bubble if needed */}
-        {challenge.type === "ASSIST" && (
-          <div className="w-full max-w-[600px] mx-auto mb-6">
-            <QuestionBubble question={getTranslatedContent(challenge)} />
+            <div>
+              {challenge.type === "ASSIST" && (
+                <QuestionBubble question={challenge.question} />
+              )}
+
+              <Challenge
+                options={options}
+                onSelect={onSelect}
+                status={status}
+                selectedOption={selectedOption}
+                disabled={pending}
+                type={challenge.type}
+              />
+            </div>
           </div>
-        )}
-
-        {/* Challenge options */}
-        <div className="w-full max-w-[600px] mx-auto">
-          <Challenge
-            options={options}
-            onSelect={onSelect}
-            status={status}
-            selectedOption={selectedOption}
-            disabled={pending}
-            type={challenge.type}
-          />
         </div>
       </div>
 

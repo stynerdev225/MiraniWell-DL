@@ -261,7 +261,7 @@ export default function DailyCheckinPage() {
 
         {/* Progress Bar */}
         <div className="w-full bg-white/30 h-2">
-          <div className="h-2 bg-gradient-to-r from-green-500 to-blue-500 rounded-full" style={{ width: '0%' }} />
+          <div className="h-2 bg-gradient-to-r from-green-500 to-blue-500 rounded-full w-0" />
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
@@ -300,7 +300,7 @@ export default function DailyCheckinPage() {
       <div className="min-h-screen bg-gradient-to-br from-purple-100 to-pink-100 flex flex-col">
         {/* Progress Bar */}
         <div className="w-full bg-white/30 h-2">
-          <div className="h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style={{ width: '100%' }} />
+          <div className="h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full w-full" />
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center p-8 text-center max-w-4xl mx-auto">
@@ -336,7 +336,15 @@ export default function DailyCheckinPage() {
               <p className="text-sm text-gray-600 mb-2">Weekly Mood</p>
               <div className="flex justify-center items-end gap-1 h-8">
                 {journalStats.weeklyMood.map((mood, i) => (
-                  <div key={i} className="bg-blue-400 rounded-t" style={{ height: `${mood * 15}%`, width: '8px' }} />
+                  <div
+                    key={i}
+                    className={`bg-blue-400 rounded-t w-2 ${mood === 1 ? 'h-[15%]' :
+                      mood === 2 ? 'h-[30%]' :
+                        mood === 3 ? 'h-[45%]' :
+                          mood === 4 ? 'h-[60%]' :
+                            mood === 5 ? 'h-[75%]' : 'h-[15%]'
+                      }`}
+                  />
                 ))}
               </div>
               <p className="text-xs text-gray-500 mt-1">Last 7 days</p>
@@ -408,8 +416,18 @@ export default function DailyCheckinPage() {
       {/* Progress Bar */}
       <div className="w-full bg-white/30 h-2">
         <div
-          className="h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-500 ease-out"
-          style={{ width: `${progress}%` }}
+          className={`h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-500 ease-out ${progress === 0 ? 'w-0' :
+              progress <= 10 ? 'w-[10%]' :
+                progress <= 20 ? 'w-[20%]' :
+                  progress <= 30 ? 'w-[30%]' :
+                    progress <= 40 ? 'w-[40%]' :
+                      progress <= 50 ? 'w-[50%]' :
+                        progress <= 60 ? 'w-[60%]' :
+                          progress <= 70 ? 'w-[70%]' :
+                            progress <= 80 ? 'w-[80%]' :
+                              progress <= 90 ? 'w-[90%]' :
+                                'w-full'
+            }`}
         />
       </div>
 
@@ -471,11 +489,12 @@ export default function DailyCheckinPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {question.options?.map((option) => (
                 <button
+                  type="button"
                   key={option.id}
                   onClick={() => handleOptionSelect(option)}
                   className={`p-6 rounded-2xl border-3 transition-all duration-300 text-left hover:scale-105 ${selectedOption === option.id
-                      ? `${option.color} border-white text-white shadow-2xl transform scale-105`
-                      : 'bg-white/80 border-gray-200 hover:border-gray-300 hover:shadow-xl backdrop-blur-sm'
+                    ? `${option.color} border-white text-white shadow-2xl transform scale-105`
+                    : 'bg-white/80 border-gray-200 hover:border-gray-300 hover:shadow-xl backdrop-blur-sm'
                     }`}
                 >
                   <div className="flex items-center gap-4">

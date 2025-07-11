@@ -6,9 +6,65 @@ import { Promo } from "@/components/promo";
 import { Quests } from "@/components/quests";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import { Header } from "./header";
 import { WellnessUnit } from "./wellness-unit";
+
+// Type definitions
+interface ChallengeProgress {
+    id: number;
+    userId: string;
+    challengeId: number;
+    completed: boolean;
+}
+
+interface Lesson {
+    id: number;
+    title: string;
+    order: number;
+    unitId: number;
+    completed: boolean;
+    challenges: ChallengeProgress[];
+}
+
+interface Unit {
+    id: number;
+    title: string;
+    description: string;
+    order: number;
+    lessons: Lesson[];
+}
+
+interface Category {
+    id: number;
+    title: string;
+    description: string;
+    color: string;
+    borderColor: string;
+    textColor: string;
+    icon: string;
+    units: Unit[];
+}
+
+interface ActiveLesson {
+    id: number;
+    title: string;
+    order: number;
+    unitId: number;
+    challenges: ChallengeProgress[];
+}
+
+interface CourseProgress {
+    activeLesson: ActiveLesson;
+    activeLessonId: number;
+}
+
+interface CategorySectionProps {
+    category: Category;
+    courseProgress: CourseProgress;
+    lessonPercentage: number;
+}
 
 // Mock data for your learning page
 const mockUserProgress = {
@@ -641,57 +697,64 @@ const LoadingSkeleton = () => (
 );
 
 // Enhanced Category Section Component
-const CategorySection = ({ category, courseProgress, lessonPercentage }: any) => (
-    <div className="mb-20">
-        {/* Enhanced Category Header with Icon and Styling */}
-        <div className={`mb-8 p-8 bg-gradient-to-r ${category.color} rounded-3xl border-2 ${category.borderColor} shadow-lg`}>
-            <div className="flex items-center gap-4 mb-4">
-                <div className="text-4xl">{category.icon}</div>
-                <h2 className={`text-3xl font-bold ${category.textColor} flex items-center gap-2`}>
-                    {category.title}
-                </h2>
-            </div>
-            <p className={`${category.textColor} text-xl leading-relaxed`}>
-                {category.description}
-            </p>
-            <div className="mt-4 flex items-center gap-2">
-                <div className="h-1 bg-white/30 rounded-full flex-1">
-                    <div
-                        className="h-full bg-white/60 rounded-full transition-all duration-300"
-                        style={{ width: `${Math.random() * 60 + 20}%` }}
-                    />
-                </div>
-                <span className={`text-sm ${category.textColor} font-medium`}>
-                    {category.units.length} units
-                </span>
-            </div>
-        </div>
+const CategorySection = ({ category, courseProgress, lessonPercentage }: CategorySectionProps) => {
+    const { t } = useLanguage();
 
-        {/* Units in this category */}
-        <div className="space-y-8">
-            {category.units.map((unit: any) => (
-                <div key={unit.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2">
-                    <WellnessUnit
-                        id={unit.id}
-                        order={unit.order}
-                        description={unit.description}
-                        title={unit.title}
-                        lessons={unit.lessons}
-                        activeLesson={courseProgress.activeLesson}
-                        activeLessonPercentage={lessonPercentage}
-                    />
+    return (
+        <div className="mb-20">
+            {/* Enhanced Category Header with Icon and Styling */}
+            <div className={`mb-8 p-8 bg-gradient-to-r ${category.color} rounded-3xl border-2 ${category.borderColor} shadow-lg`}>
+                <div className="flex items-center gap-4 mb-4">
+                    <div className="text-4xl">{category.icon}</div>
+                    <h2 className={`text-3xl font-bold ${category.textColor} flex items-center gap-2`}>
+                        {t(`learn.category${category.id}.title`)}
+                    </h2>
                 </div>
-            ))}
+                <p className={`${category.textColor} text-xl leading-relaxed`}>
+                    {t(`learn.category${category.id}.description`)}
+                </p>
+                <div className="mt-4 flex items-center gap-2">
+                    <div className="h-1 bg-white/30 rounded-full flex-1">
+                        <div
+                            className={`h-full bg-white/60 rounded-full transition-all duration-300 ${category.id === 1 ? 'w-[45%]' :
+                                category.id === 2 ? 'w-[25%]' :
+                                    category.id === 3 ? 'w-[15%]' : 'w-[5%]'
+                                }`}
+                        />
+                    </div>
+                    <span className={`text-sm ${category.textColor} font-medium`}>
+                        {category.units.length} {t('learn.units')}
+                    </span>
+                </div>
+            </div>
+
+            {/* Units in this category */}
+            <div className="space-y-8">
+                {category.units.map((unit: Unit) => (
+                    <div key={unit.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2">
+                        <WellnessUnit
+                            id={unit.id}
+                            order={unit.order}
+                            description={unit.description}
+                            title={unit.title}
+                            lessons={unit.lessons}
+                            activeLesson={courseProgress.activeLesson}
+                            activeLessonPercentage={lessonPercentage}
+                        />
+                    </div>
+                ))}
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 const LearnPage = () => {
     const isPro = false;
+    const { t, currentLanguage } = useLanguage();
 
     return (
         <Suspense fallback={<LoadingSkeleton />}>
-            <div className="flex flex-row-reverse gap-[48px] px-6">
+            <div className="flex flex-row-reverse gap-[48px] px-6" key={currentLanguage}>
                 <StickyWrapper>
                     <UserProgress
                         activeCourse={mockUserProgress.activeCourse}
@@ -704,7 +767,7 @@ const LearnPage = () => {
                     <Quests points={mockUserProgress.points} />
                 </StickyWrapper>
                 <FeedWrapper>
-                    <Header title="Your Wellness Journey with Luna" />
+                    <Header title={t('learn.title')} />
                     <LunaCompanion />
 
                     {/* Journey Overview */}

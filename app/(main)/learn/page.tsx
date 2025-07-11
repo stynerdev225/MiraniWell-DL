@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense } from "react";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
@@ -5,10 +7,74 @@ import { LunaCompanion } from "@/components/luna-companion";
 import { Promo } from "@/components/promo";
 import { Quests } from "@/components/quests";
 import { StickyWrapper } from "@/components/sticky-wrapper";
+import { TranslationTest } from "@/components/translation-test";
 import { UserProgress } from "@/components/user-progress";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import { Header } from "./header";
 import { WellnessUnit } from "./wellness-unit";
+
+// Type definitions
+interface ChallengeProgress {
+  id: number;
+  userId: string;
+  challengeId: number;
+  completed: boolean;
+}
+
+interface Lesson {
+  id: number;
+  title: string;
+  order: number;
+  unitId: number;
+  completed: boolean;
+  challenges: ChallengeProgress[];
+}
+
+interface Unit {
+  id: number;
+  title: string;
+  titleKey?: string;
+  description: string;
+  descriptionKey?: string;
+  order: number;
+  lessons: Lesson[];
+}
+
+interface Category {
+  id: number;
+  title: string;
+  description: string;
+  color: string;
+  borderColor: string;
+  textColor: string;
+  icon: string;
+  units: Unit[];
+}
+
+interface ActiveLesson {
+  id: number;
+  title: string;
+  order: number;
+  unitId: number;
+  challenges: ChallengeProgress[];
+}
+
+interface CourseProgress {
+  activeLesson: ActiveLesson;
+  activeLessonId: number;
+}
+
+interface TranslationFunction {
+  (key: string): string;
+}
+
+interface CategorySectionProps {
+  category: Category;
+  courseProgress: CourseProgress;
+  lessonPercentage: number;
+  t: TranslationFunction;
+}
 
 // Mock data for your learning page
 const mockUserProgress = {
@@ -38,7 +104,9 @@ const wellnessCategories = [
       {
         id: 1,
         title: "Earth Element",
+        titleKey: "learn.earth.title",
         description: "Ground yourself with earth's stable energy and discover manifestation",
+        descriptionKey: "learn.earth.description",
         order: 1,
         lessons: [
           {
@@ -78,7 +146,9 @@ const wellnessCategories = [
       {
         id: 2,
         title: "Water Element",
+        titleKey: "learn.water.title",
         description: "Flow with water's healing properties",
+        descriptionKey: "learn.water.description",
         order: 2,
         lessons: [
           {
@@ -110,7 +180,9 @@ const wellnessCategories = [
       {
         id: 3,
         title: "Fire Element",
+        titleKey: "learn.fire.title",
         description: "Ignite your inner passion and transformation",
+        descriptionKey: "learn.fire.description",
         order: 3,
         lessons: [
           {
@@ -142,7 +214,9 @@ const wellnessCategories = [
       {
         id: 4,
         title: "Air Element",
+        titleKey: "learn.air.title",
         description: "Breathe with air's clarity and freedom",
+        descriptionKey: "learn.air.description",
         order: 4,
         lessons: [
           {
@@ -185,7 +259,9 @@ const wellnessCategories = [
       {
         id: 6,
         title: "Mindfulness & Meditation",
+        titleKey: "learn.mindfulness.title",
         description: "Develop present moment awareness and inner peace",
+        descriptionKey: "learn.mindfulness.description",
         order: 6,
         lessons: [
           {
@@ -225,7 +301,9 @@ const wellnessCategories = [
       {
         id: 7,
         title: "Mental Wellness",
+        titleKey: "learn.mental.title",
         description: "Strengthen your mind and manage stress effectively",
+        descriptionKey: "learn.mental.description",
         order: 7,
         lessons: [
           {
@@ -265,7 +343,9 @@ const wellnessCategories = [
       {
         id: 8,
         title: "Physical Wellness",
+        titleKey: "learn.physical.title",
         description: "Connect with your body through movement and awareness",
+        descriptionKey: "learn.physical.description",
         order: 8,
         lessons: [
           {
@@ -305,7 +385,9 @@ const wellnessCategories = [
       {
         id: 9,
         title: "Spiritual Growth",
+        titleKey: "learn.spiritual.title",
         description: "Explore your inner wisdom and spiritual connection",
+        descriptionKey: "learn.spiritual.description",
         order: 9,
         lessons: [
           {
@@ -356,7 +438,9 @@ const wellnessCategories = [
       {
         id: 10,
         title: "Sleep & Rest",
+        titleKey: "learn.sleep.title",
         description: "Master the art of restorative sleep and deep relaxation",
+        descriptionKey: "learn.sleep.description",
         order: 10,
         lessons: [
           {
@@ -396,7 +480,9 @@ const wellnessCategories = [
       {
         id: 11,
         title: "Emotional Intelligence",
+        titleKey: "learn.emotional.title",
         description: "Develop emotional awareness and healthy relationships",
+        descriptionKey: "learn.emotional.description",
         order: 11,
         lessons: [
           {
@@ -436,7 +522,9 @@ const wellnessCategories = [
       {
         id: 13,
         title: "Nature Connection",
+        titleKey: "learn.nature.title",
         description: "Reconnect with nature's healing wisdom and rhythms",
+        descriptionKey: "learn.nature.description",
         order: 13,
         lessons: [
           {
@@ -487,7 +575,9 @@ const wellnessCategories = [
       {
         id: 12,
         title: "Energy & Chakras",
+        titleKey: "learn.energy.title",
         description: "Balance your energy centers and enhance your vitality",
+        descriptionKey: "learn.energy.description",
         order: 12,
         lessons: [
           {
@@ -527,7 +617,9 @@ const wellnessCategories = [
       {
         id: 14,
         title: "Manifestation & Goals",
+        titleKey: "learn.manifestation.title",
         description: "Create your ideal life through focused intention and action",
+        descriptionKey: "learn.manifestation.description",
         order: 14,
         lessons: [
           {
@@ -567,7 +659,9 @@ const wellnessCategories = [
       {
         id: 5,
         title: "Luna AI Guidance",
+        titleKey: "learn.luna.title",
         description: "Connect with your AI wellness companion Luna",
+        descriptionKey: "learn.luna.description",
         order: 5,
         lessons: [
           {
@@ -641,41 +735,43 @@ const LoadingSkeleton = () => (
 );
 
 // Enhanced Category Section Component
-const CategorySection = ({ category, courseProgress, lessonPercentage }: any) => (
+const CategorySection = ({ category, courseProgress, lessonPercentage, t }: CategorySectionProps) => (
   <div className="mb-20">
     {/* Enhanced Category Header with Icon and Styling */}
     <div className={`mb-8 p-8 bg-gradient-to-r ${category.color} rounded-3xl border-2 ${category.borderColor} shadow-lg`}>
       <div className="flex items-center gap-4 mb-4">
         <div className="text-4xl">{category.icon}</div>
         <h2 className={`text-3xl font-bold ${category.textColor} flex items-center gap-2`}>
-          {category.title}
+          {t(`learn.category${category.id}.title`)}
         </h2>
       </div>
       <p className={`${category.textColor} text-xl leading-relaxed`}>
-        {category.description}
+        {t(`learn.category${category.id}.description`)}
       </p>
       <div className="mt-4 flex items-center gap-2">
         <div className="h-1 bg-white/30 rounded-full flex-1">
           <div
-            className="h-full bg-white/60 rounded-full transition-all duration-300"
-            style={{ width: `${Math.random() * 60 + 20}%` }}
+            className={`h-full bg-white/60 rounded-full transition-all duration-300 ${category.id === 1 ? 'w-[45%]' :
+              category.id === 2 ? 'w-[25%]' :
+                category.id === 3 ? 'w-[15%]' : 'w-[5%]'
+              }`}
           />
         </div>
         <span className={`text-sm ${category.textColor} font-medium`}>
-          {category.units.length} units
+          {category.units.length} {t('learn.units')}
         </span>
       </div>
     </div>
 
     {/* Units in this category */}
     <div className="space-y-8">
-      {category.units.map((unit: any) => (
+      {category.units.map((unit: Unit) => (
         <div key={unit.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2">
           <WellnessUnit
             id={unit.id}
             order={unit.order}
-            description={unit.description}
-            title={unit.title}
+            description={unit.descriptionKey ? t(unit.descriptionKey) : unit.description}
+            title={unit.titleKey ? t(unit.titleKey) : unit.title}
             lessons={unit.lessons}
             activeLesson={courseProgress.activeLesson}
             activeLessonPercentage={lessonPercentage}
@@ -688,10 +784,11 @@ const CategorySection = ({ category, courseProgress, lessonPercentage }: any) =>
 
 const LearnPage = () => {
   const isPro = false;
+  const { t, currentLanguage } = useLanguage();
 
   return (
     <Suspense fallback={<LoadingSkeleton />}>
-      <div className="flex flex-row-reverse gap-[48px] px-6">
+      <div className="flex flex-row-reverse gap-[48px] px-6" key={currentLanguage}>
         <StickyWrapper>
           <UserProgress
             activeCourse={mockUserProgress.activeCourse}
@@ -704,25 +801,26 @@ const LearnPage = () => {
           <Quests points={mockUserProgress.points} />
         </StickyWrapper>
         <FeedWrapper>
-          <Header title="Your Wellness Journey with Luna" />
+          <TranslationTest />
+          <Header title={t('learn.title')} />
           <LunaCompanion />
 
           {/* Journey Overview */}
-          <div className="mb-12 p-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border-2 border-indigo-200">
-            <h3 className="text-xl font-bold text-indigo-800 mb-2">🌟 Your Learning Path</h3>
+          <div key={`journey-${currentLanguage}`} className="mb-12 p-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border-2 border-indigo-200">
+            <h3 className="text-xl font-bold text-indigo-800 mb-2">{t('learn.pathTitle')}</h3>
             <p className="text-indigo-700">
-              Begin with Elemental Foundations, then explore Mind-Body-Spirit connection,
-              apply Practical Wellness to daily life, and master Advanced Wellness techniques.
+              {t('learn.pathDescription')}
             </p>
           </div>
 
           {/* Render each category as a distinct section */}
           {wellnessCategories.map((category) => (
             <CategorySection
-              key={category.id}
+              key={`${category.id}-${currentLanguage}`}
               category={category}
               courseProgress={mockCourseProgress}
               lessonPercentage={mockLessonPercentage}
+              t={t}
             />
           ))}
         </FeedWrapper>

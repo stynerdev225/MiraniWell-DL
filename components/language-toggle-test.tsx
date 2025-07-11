@@ -46,6 +46,7 @@ export const LanguageToggle = () => {
     return (
         <div className="relative" ref={dropdownRef}>
             <button
+                type="button"
                 onClick={toggleDropdown}
                 className="flex items-center gap-2 px-3 py-2 text-sm text-neutral-600 hover:text-neutral-800 hover:bg-gray-50 rounded-md transition-colors border border-gray-300"
             >
@@ -58,9 +59,8 @@ export const LanguageToggle = () => {
 
             {/* Dropdown with enhanced visibility */}
             <div
-                className={`absolute right-0 top-full mt-2 w-48 bg-white border-2 border-blue-500 rounded-md shadow-2xl ${isOpen ? 'block' : 'block'
+                className={`absolute right-0 top-full mt-2 w-48 bg-white border-2 border-blue-500 rounded-md shadow-2xl z-[9999] ${isOpen ? 'block' : 'block'
                     }`}
-                style={{ zIndex: 9999 }}
             >
                 <div className="p-1">
                     <div className="text-xs text-blue-500 p-1 font-bold border-b mb-1">
@@ -68,11 +68,12 @@ export const LanguageToggle = () => {
                     </div>
                     {languageOptions.map((language) => (
                         <button
+                            type="button"
                             key={language.code}
                             onClick={() => handleLanguageChange(language.code)}
                             className={`w-full text-left px-3 py-2 text-sm rounded-md transition-colors flex items-center gap-2 ${currentLanguage === language.code
-                                    ? "bg-blue-100 text-blue-700 font-bold"
-                                    : "hover:bg-gray-100 text-gray-800"
+                                ? "bg-blue-100 text-blue-700 font-bold"
+                                : "hover:bg-gray-100 text-gray-800"
                                 }`}
                         >
                             <span className="text-base">{language.flag}</span>

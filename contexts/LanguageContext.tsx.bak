@@ -5,9 +5,23 @@ export type Language = 'EN' | 'ES' | 'FR' | 'DE' | 'IT' | 'PT' | 'RU' | 'JA' | '
 
 interface LanguageContextType {
     currentLanguage: Language;
-    setLanguage: (language: Language) => void;
+    setLanguage: (language: Languag        'learn.luna.title': 'Luna AI Führung',
+        'learn.luna.description': 'Verbinden Sie sich mit Ihrer AI-Wellness-Begleiterin Luna',
+        // Quiz translations - German
+        'quiz.selectCorrectMeaning': 'Wählen Sie die richtige Bedeutung',
+        'quiz.continue': 'Fortfahren',
+        'quiz.check': 'Überprüfen',
+        'quiz.skip': 'Überspringen',
+        'quiz.finish': 'Beenden',
+        'quiz.next': 'Weiter',
+        'quiz.complete': 'Lektion abgeschlossen!',
+        'quiz.congratulations': 'Herzlichen Glückwunsch!',
+        'quiz.youEarned': 'Sie haben verdient',
+        'quiz.points': 'Punkte',
+        'quiz.correctAnswer': 'Richtige Antwort',
+        'quiz.wrongAnswer': 'Falsche Antwort',
+    },=> void;
     t: (key: string) => string;
-    translateQuizContent: (content: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -24,8 +38,8 @@ interface LanguageProviderProps {
     children: ReactNode;
 }
 
-// Translations
-const translations: Record<Language, Record<string, string>> = {
+// Minimal translations to reduce initial bundle size
+const minimalTranslations: Record<Language, Record<string, string>> = {
     EN: {
         'header.features': 'Features',
         'header.whyMirianiWell': 'Why Miriani Well',
@@ -117,18 +131,6 @@ const translations: Record<Language, Record<string, string>> = {
         'quiz.points': 'points',
         'quiz.correctAnswer': 'Correct Answer',
         'quiz.wrongAnswer': 'Wrong Answer',
-        'quiz.mascot': 'Mascot',
-        // Quiz content translations
-        'quiz.content.earth.q1': 'What is the primary purpose of earth grounding?',
-        'quiz.content.earth.q1.a1': 'To connect with the earth\'s stable energy',
-        'quiz.content.earth.q1.a2': 'To lose weight quickly',
-        'quiz.content.earth.q1.a3': 'To sleep better at night',
-        'quiz.content.earth.q1.a4': 'To become famous',
-        'quiz.content.earth.q2': 'Which element represents grounding and stability?',
-        'quiz.content.earth.q2.a1': 'Earth',
-        'quiz.content.earth.q2.a2': 'Fire',
-        'quiz.content.earth.q2.a3': 'Water',
-        'quiz.content.earth.q2.a4': 'Air',
     },
     ES: {
         'header.features': 'Características',
@@ -198,18 +200,6 @@ const translations: Record<Language, Record<string, string>> = {
         'quiz.points': 'puntos',
         'quiz.correctAnswer': 'Respuesta Correcta',
         'quiz.wrongAnswer': 'Respuesta Incorrecta',
-        'quiz.mascot': 'Mascota',
-        // Quiz content translations - Spanish
-        'quiz.content.earth.q1': '¿Cuál es el propósito principal de la conexión a tierra?',
-        'quiz.content.earth.q1.a1': 'Conectar con la energía estable de la tierra',
-        'quiz.content.earth.q1.a2': 'Perder peso rápidamente',
-        'quiz.content.earth.q1.a3': 'Dormir mejor por la noche',
-        'quiz.content.earth.q1.a4': 'Hacerse famoso',
-        'quiz.content.earth.q2': '¿Qué elemento representa la conexión a tierra y la estabilidad?',
-        'quiz.content.earth.q2.a1': 'Tierra',
-        'quiz.content.earth.q2.a2': 'Fuego',
-        'quiz.content.earth.q2.a3': 'Agua',
-        'quiz.content.earth.q2.a4': 'Aire',
     },
     FR: {
         'header.features': 'Fonctionnalités',
@@ -226,10 +216,10 @@ const translations: Record<Language, Record<string, string>> = {
         'hero.getStarted': 'Commencer',
         'hero.alreadyHaveAccount': 'J\'ai déjà un compte',
         // Learn page translations - French
-        'learn.title': 'Votre Voyage de Bien-etre avec Luna',
+        'learn.title': 'Votre Voyage de Bien-être avec Luna',
         'learn.pathTitle': '🌟 Votre Parcours d\'Apprentissage',
         'learn.pathDescription': 'Commencez par les Fondements Élémentaires, puis explorez la connexion Corps-Esprit-Âme, appliquez le Bien-être Pratique à la vie quotidienne et maîtrisez les techniques de Bien-être Avancé.',
-        'learn.category1.title': '🌟 Fondements Elementaires',
+        'learn.category1.title': '🌟 Fondements Élémentaires',
         'learn.category1.description': 'Maîtrisez les quatre éléments pour construire votre fondation de bien-être',
         'learn.category2.title': '🧠 Corps-Esprit-Âme',
         'learn.category2.description': 'Intégrez votre bien-être mental, physique et spirituel',
@@ -279,18 +269,6 @@ const translations: Record<Language, Record<string, string>> = {
         'quiz.points': 'points',
         'quiz.correctAnswer': 'Réponse Correcte',
         'quiz.wrongAnswer': 'Réponse Incorrecte',
-        'quiz.mascot': 'Mascotte',
-        // Quiz content translations - French
-        'quiz.content.earth.q1': 'Quel est l\'objectif principal de la connexion à la terre?',
-        'quiz.content.earth.q1.a1': 'Se connecter à l\'énergie stable de la terre',
-        'quiz.content.earth.q1.a2': 'Perdre du poids rapidement',
-        'quiz.content.earth.q1.a3': 'Mieux dormir la nuit',
-        'quiz.content.earth.q1.a4': 'Devenir célèbre',
-        'quiz.content.earth.q2': 'Quel élément représente l\'ancrage et la stabilité?',
-        'quiz.content.earth.q2.a1': 'Terre',
-        'quiz.content.earth.q2.a2': 'Feu',
-        'quiz.content.earth.q2.a3': 'Eau',
-        'quiz.content.earth.q2.a4': 'Air',
     },
     DE: {
         'header.features': 'Funktionen',
@@ -347,31 +325,6 @@ const translations: Record<Language, Record<string, string>> = {
         'learn.manifestation.description': 'Erschaffen Sie Ihr ideales Leben durch fokussierte Absicht und Handlung',
         'learn.luna.title': 'Luna AI Führung',
         'learn.luna.description': 'Verbinden Sie sich mit Ihrer AI-Wellness-Begleiterin Luna',
-        // Quiz translations - German
-        'quiz.selectCorrectMeaning': 'Wählen Sie die richtige Bedeutung',
-        'quiz.continue': 'Fortfahren',
-        'quiz.check': 'Überprüfen',
-        'quiz.skip': 'Überspringen',
-        'quiz.finish': 'Beenden',
-        'quiz.next': 'Weiter',
-        'quiz.complete': 'Lektion abgeschlossen!',
-        'quiz.congratulations': 'Herzlichen Glückwunsch!',
-        'quiz.youEarned': 'Sie haben verdient',
-        'quiz.points': 'Punkte',
-        'quiz.correctAnswer': 'Richtige Antwort',
-        'quiz.wrongAnswer': 'Falsche Antwort',
-        'quiz.mascot': 'Maskottchen',
-        // Quiz content translations - German
-        'quiz.content.earth.q1': 'Was ist der Hauptzweck der Erdung?',
-        'quiz.content.earth.q1.a1': 'Sich mit der stabilen Energie der Erde verbinden',
-        'quiz.content.earth.q1.a2': 'Schnell Gewicht verlieren',
-        'quiz.content.earth.q1.a3': 'Nachts besser schlafen',
-        'quiz.content.earth.q1.a4': 'Berühmt werden',
-        'quiz.content.earth.q2': 'Welches Element repräsentiert Erdung und Stabilität?',
-        'quiz.content.earth.q2.a1': 'Erde',
-        'quiz.content.earth.q2.a2': 'Feuer',
-        'quiz.content.earth.q2.a3': 'Wasser',
-        'quiz.content.earth.q2.a4': 'Luft',
     },
     IT: {
         'header.features': 'Caratteristiche',
@@ -428,31 +381,6 @@ const translations: Record<Language, Record<string, string>> = {
         'learn.manifestation.description': 'Crea la tua vita ideale attraverso l\'intenzione focalizzata e l\'azione',
         'learn.luna.title': 'Guida Luna AI',
         'learn.luna.description': 'Connettiti con la tua compagna di benessere AI Luna',
-        // Quiz translations - Italian
-        'quiz.selectCorrectMeaning': 'Seleziona il significato corretto',
-        'quiz.continue': 'Continua',
-        'quiz.check': 'Verifica',
-        'quiz.skip': 'Salta',
-        'quiz.finish': 'Termina',
-        'quiz.next': 'Prossimo',
-        'quiz.complete': 'Lezione Completata!',
-        'quiz.congratulations': 'Congratulazioni!',
-        'quiz.youEarned': 'Hai guadagnato',
-        'quiz.points': 'punti',
-        'quiz.correctAnswer': 'Risposta Corretta',
-        'quiz.wrongAnswer': 'Risposta Sbagliata',
-        'quiz.mascot': 'Mascotte',
-        // Quiz content translations - Italian
-        'quiz.content.earth.q1': 'Qual è lo scopo principale della connessione con la terra?',
-        'quiz.content.earth.q1.a1': 'Connettersi con l\'energia stabile della terra',
-        'quiz.content.earth.q1.a2': 'Perdere peso velocemente',
-        'quiz.content.earth.q1.a3': 'Dormire meglio la notte',
-        'quiz.content.earth.q1.a4': 'Diventare famosi',
-        'quiz.content.earth.q2': 'Quale elemento rappresenta la connessione con la terra e la stabilità?',
-        'quiz.content.earth.q2.a1': 'Terra',
-        'quiz.content.earth.q2.a2': 'Fuoco',
-        'quiz.content.earth.q2.a3': 'Acqua',
-        'quiz.content.earth.q2.a4': 'Aria',
     },
     PT: {
         'header.features': 'Recursos',
@@ -576,35 +504,16 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     const setLanguage = (language: Language) => {
         setCurrentLanguage(language);
         localStorage.setItem('language', language);
-
-        // Force re-render by updating a timestamp
-        window.dispatchEvent(new CustomEvent('languageChanged', { detail: language }));
     };
 
     const t = (key: string): string => {
         if (!isLoaded) return key; // Return key during loading to avoid hydration mismatch
-        const translation = translations[currentLanguage]?.[key] || translations['EN'][key] || key;
+        const translation = minimalTranslations[currentLanguage]?.[key] || minimalTranslations['EN'][key] || key;
         return translation;
     };
 
-    // Helper function to translate quiz content
-    const translateQuizContent = (content: string): string => {
-        // Try to find a translation key for this content
-        const keyPrefix = 'quiz.content.';
-        const possibleKey = Object.keys(translations['EN']).find(key =>
-            key.startsWith(keyPrefix) && translations['EN'][key] === content
-        );
-
-        if (possibleKey && translations[currentLanguage]?.[possibleKey]) {
-            return translations[currentLanguage][possibleKey];
-        }
-
-        // If no translation is found, return the original content
-        return content;
-    };
-
     return (
-        <LanguageContext.Provider value={{ currentLanguage, setLanguage, t, translateQuizContent }}>
+        <LanguageContext.Provider value={{ currentLanguage, setLanguage, t }}>
             {children}
         </LanguageContext.Provider>
     );

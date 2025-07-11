@@ -101,16 +101,7 @@ export const Quiz = ({
   const [status, setStatus] = useState<"none" | "wrong" | "correct">("none");
 
   const challenge = challenges[activeIndex];
-  const options = useMemo(() => {
-    return (challenge?.challengeOptions ?? []).map(option => {
-      // Type assertion to handle mock data with translationKey
-      const optionWithTranslation = option as typeof option & { translationKey?: string };
-      return {
-        ...option,
-        text: optionWithTranslation.translationKey ? t(optionWithTranslation.translationKey) : option.text
-      };
-    });
-  }, [challenge, t]);
+  const options = useMemo(() => challenge?.challengeOptions ?? [], [challenge]);
 
   const onNext = useCallback(() => {
     setActiveIndex((current) => current + 1);
@@ -251,29 +242,32 @@ export const Quiz = ({
         hasActiveSubscription={!!userSubscription?.isActive}
       />
 
-      <div className="flex-1 py-4 w-full flex flex-col items-center justify-center px-4 relative z-10 overflow-visible">
+      <div className="flex-1 py-4 max-w-7xl mx-auto px-4">
         {/* Title centered at top */}
-        <h1 className="text-center text-xl font-bold text-neutral-700 mb-6 lg:text-2xl max-w-[600px]">
+        <h1 className="text-center text-xl font-bold text-neutral-700 mb-6 lg:text-2xl">
           {title}
         </h1>
-
+        
         {/* Question bubble if needed */}
         {challenge.type === "ASSIST" && (
-          <div className="w-full max-w-[600px] mx-auto mb-6">
+          <div className="w-full max-w-3xl mx-auto mb-6">
             <QuestionBubble question={getTranslatedContent(challenge)} />
           </div>
         )}
 
         {/* Challenge options */}
-        <div className="w-full max-w-[600px] mx-auto">
-          <Challenge
-            options={options}
-            onSelect={onSelect}
-            status={status}
-            selectedOption={selectedOption}
-            disabled={pending}
-            type={challenge.type}
-          />
+        <div className="flex flex-col items-center justify-center">
+          <div className="w-full max-w-3xl mx-auto">
+            <Challenge
+              options={options}
+              onSelect={onSelect}
+              status={status}
+              selectedOption={selectedOption}
+              disabled={pending}
+              type={challenge.type}
+              getTranslatedContent={getTranslatedContent}
+            />
+          </div>
         </div>
       </div>
 

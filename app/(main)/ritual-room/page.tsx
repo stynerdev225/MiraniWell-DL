@@ -1,7 +1,7 @@
 import { FeedWrapper } from "@/components/feed-wrapper";
+import { LunaCompanion } from "@/components/luna-companion";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
-import { LunaCompanion } from "@/components/luna-companion";
 
 // Mock data for ritual-room page
 const mockUserProgress = {
@@ -125,18 +125,18 @@ const RitualRoomPage = () => {
 
           {/* Daily Ritual Schedule */}
           <div className="bg-white rounded-xl p-6 shadow-lg mb-8 w-full max-w-4xl">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">📅 Today's Ritual Schedule</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-4">📅 Today&#39;s Ritual Schedule</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {dailyRituals.map((item, index) => (
                 <div key={index} className={`p-4 rounded-lg border-2 ${item.status === 'completed' ? 'bg-green-50 border-green-200' :
-                    item.status === 'pending' ? 'bg-blue-50 border-blue-200' :
-                      'bg-gray-50 border-gray-200'
+                  item.status === 'pending' ? 'bg-blue-50 border-blue-200' :
+                    'bg-gray-50 border-gray-200'
                   }`}>
                   <div className="text-sm font-medium text-gray-600">{item.time}</div>
                   <div className="text-sm text-gray-800">{item.ritual}</div>
                   <div className={`text-xs mt-1 ${item.status === 'completed' ? 'text-green-600' :
-                      item.status === 'pending' ? 'text-blue-600' :
-                        'text-gray-500'
+                    item.status === 'pending' ? 'text-blue-600' :
+                      'text-gray-500'
                     }`}>
                     {item.status === 'completed' ? '✓ Complete' :
                       item.status === 'pending' ? '○ Ready' : '🔒 Locked'}
@@ -185,7 +185,7 @@ const RitualRoomPage = () => {
                     </div>
                   </div>
 
-                  <button className={`w-full bg-gradient-to-r ${ritual.color} text-white py-3 rounded-lg font-medium hover:opacity-90 transition-opacity`}>
+                  <button type="button" className={`w-full bg-gradient-to-r ${ritual.color} text-white py-3 rounded-lg font-medium hover:opacity-90 transition-opacity`}>
                     🎧 Begin Guided Ritual
                   </button>
                 </div>

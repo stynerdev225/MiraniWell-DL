@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 
+import { challenges, challengeOptions } from "@/db/schema";
+
 import { Quiz } from "../quiz";
 
 type LessonIdPageProps = {
@@ -8,9 +10,48 @@ type LessonIdPageProps = {
   };
 };
 
+// Define challenge type
+type Challenge = (typeof challenges.$inferSelect & {
+  completed: boolean;
+  translationKey?: string;
+  challengeOptions: (typeof challengeOptions.$inferSelect & { translationKey?: string })[];
+});
+
+// Define lesson type
+type Lesson = {
+  id: number;
+  title: string;
+  challenges: Challenge[];
+};
+
+// This function creates a page component that will be rendered on the server
+export default function LessonIdPage({ params }: LessonIdPageProps) {
+  const lessonId = Number(params.lessonId);
+  const lessonIdStr = String(lessonId);
+
+  if (!lessonId || !mockLessons[lessonIdStr]) {
+    redirect("/learn");
+  }
+
+  // Get the current lesson data
+  const currentLesson = mockLessons[lessonIdStr];
+
+  return (
+    <div className="flex flex-col h-full items-center overflow-visible">
+      <Quiz
+        initialLessonId={lessonId}
+        initialHearts={5}
+        initialPercentage={0}
+        initialLessonChallenges={currentLesson.challenges}
+        userSubscription={null}
+      />
+    </div>
+  );
+}
+
 // Mock data for lessons and challenges
-const mockLessons = {
-  1: {
+const mockLessons: Record<string, Lesson> = {
+  "1": {
     id: 1,
     title: "Introduction to Earth Grounding",
     challenges: [
@@ -19,13 +60,14 @@ const mockLessons = {
         order: 1,
         lessonId: 1,
         question: "What is the primary purpose of earth grounding?",
+        translationKey: "quiz.content.earth.q1",
         type: "SELECT" as const,
         completed: false,
         challengeOptions: [
-          { id: 1, text: "To connect with the earth's stable energy", imageSrc: "/boy.svg", challengeId: 1, correct: true, audioSrc: null },
-          { id: 2, text: "To lose weight quickly", imageSrc: "/girl.svg", challengeId: 1, correct: false, audioSrc: null },
-          { id: 3, text: "To sleep better at night", imageSrc: "/man.svg", challengeId: 1, correct: false, audioSrc: null },
-          { id: 4, text: "To become famous", imageSrc: "/woman.svg", challengeId: 1, correct: false, audioSrc: null },
+          { id: 1, text: "To connect with the earth's stable energy", translationKey: "quiz.content.earth.q1.a1", imageSrc: "/boy.svg", challengeId: 1, correct: true, audioSrc: null },
+          { id: 2, text: "To lose weight quickly", translationKey: "quiz.content.earth.q1.a2", imageSrc: "/girl.svg", challengeId: 1, correct: false, audioSrc: null },
+          { id: 3, text: "To sleep better at night", translationKey: "quiz.content.earth.q1.a3", imageSrc: "/man.svg", challengeId: 1, correct: false, audioSrc: null },
+          { id: 4, text: "To become famous", translationKey: "quiz.content.earth.q1.a4", imageSrc: "/woman.svg", challengeId: 1, correct: false, audioSrc: null },
         ],
       },
       {
@@ -33,13 +75,14 @@ const mockLessons = {
         order: 2,
         lessonId: 1,
         question: "Which element represents grounding and stability?",
+        translationKey: "quiz.content.earth.q2",
         type: "SELECT" as const,
         completed: false,
         challengeOptions: [
-          { id: 5, text: "Earth", imageSrc: "/face-1.svg", challengeId: 2, correct: true, audioSrc: null },
-          { id: 6, text: "Fire", imageSrc: "/face-2.svg", challengeId: 2, correct: false, audioSrc: null },
-          { id: 7, text: "Water", imageSrc: "/face-3.svg", challengeId: 2, correct: false, audioSrc: null },
-          { id: 8, text: "Air", imageSrc: "/face-4.svg", challengeId: 2, correct: false, audioSrc: null },
+          { id: 5, text: "Earth", translationKey: "quiz.content.earth.q2.a1", imageSrc: "/face-1.svg", challengeId: 2, correct: true, audioSrc: null },
+          { id: 6, text: "Fire", translationKey: "quiz.content.earth.q2.a2", imageSrc: "/face-2.svg", challengeId: 2, correct: false, audioSrc: null },
+          { id: 7, text: "Water", translationKey: "quiz.content.earth.q2.a3", imageSrc: "/face-3.svg", challengeId: 2, correct: false, audioSrc: null },
+          { id: 8, text: "Air", translationKey: "quiz.content.earth.q2.a4", imageSrc: "/face-4.svg", challengeId: 2, correct: false, audioSrc: null },
         ],
       },
       {
@@ -298,36 +341,4 @@ const mockLessons = {
   },
 };
 
-const mockUserSubscription = {
-  id: 1,
-  userId: "mock-user-id",
-  stripeCustomerId: "mock-stripe-customer-id",
-  stripeSubscriptionId: "mock-stripe-subscription-id",
-  stripePriceId: "mock-stripe-price-id",
-  stripeCurrentPeriodEnd: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days from now
-  isActive: false,
-};
 
-const LessonIdPage = ({ params }: LessonIdPageProps) => {
-  const lessonId = Number(params.lessonId);
-  const lesson = mockLessons[lessonId as keyof typeof mockLessons];
-
-  if (!lesson) redirect("/learn");
-
-  const initialPercentage =
-    (lesson.challenges.filter((challenge) => challenge.completed).length /
-      lesson.challenges.length) *
-    100;
-
-  return (
-    <Quiz
-      initialLessonId={lesson.id}
-      initialLessonChallenges={lesson.challenges}
-      initialHearts={5}
-      initialPercentage={initialPercentage}
-      userSubscription={mockUserSubscription}
-    />
-  );
-};
-
-export default LessonIdPage;

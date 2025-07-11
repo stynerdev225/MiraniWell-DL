@@ -1,7 +1,7 @@
 import { FeedWrapper } from "@/components/feed-wrapper";
+import { LunaCompanion } from "@/components/luna-companion";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
-import { LunaCompanion } from "@/components/luna-companion";
 
 // Mock data for mind-body-spirit page
 const mockUserProgress = {
@@ -157,7 +157,7 @@ const MindBodySpiritPage = () => {
 
           {/* Progress Overview */}
           <div className="bg-white rounded-xl p-6 shadow-lg mb-8 w-full max-w-4xl">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">📈 Today's Progress</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-4">📈 Today&#39;s Progress</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {Object.entries(todayProgress).map(([key, progress]) => {
                 const percentage = (progress.completed / progress.total) * 100;
@@ -216,8 +216,8 @@ const MindBodySpiritPage = () => {
                     <div
                       key={index}
                       className={`rounded-lg p-4 shadow-md hover:shadow-lg transition-all cursor-pointer border-2 ${practice.completed
-                          ? 'bg-green-50 border-green-200'
-                          : 'bg-white border-gray-200 hover:border-gray-300'
+                        ? 'bg-green-50 border-green-200'
+                        : 'bg-white border-gray-200 hover:border-gray-300'
                         }`}
                     >
                       <div className="flex items-start justify-between mb-2">
@@ -247,10 +247,12 @@ const MindBodySpiritPage = () => {
                         )}
                       </div>
 
-                      <button className={`w-full px-3 py-2 rounded-lg text-sm font-medium transition-colors ${practice.completed
+                      <button
+                        type="button"
+                        className={`w-full px-3 py-2 rounded-lg text-sm font-medium transition-colors ${practice.completed
                           ? 'bg-green-100 text-green-700 hover:bg-green-200'
                           : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                        }`}>
+                          }`}>
                         {practice.completed ? '🎆 Practice Again' : '🎧 Start Practice'}
                       </button>
                     </div>
