@@ -1,6 +1,6 @@
 # Miriani Well - AI Wellness Companion Platform
 
-![Miriani Well - AI Wellness Companion with Luna](/img_main.png "Miriani Well - AI Wellness Companion with Luna")
+![Miriani Well - AI Wellness Companion with Luna](./public/img_main.png "Miriani Well - AI Wellness Companion with Luna")
 
 [![Proprietary License](https://img.shields.io/badge/license-Proprietary-red.svg)](https://github.com/MirianiWell/miriani-well-platform/blob/main/LICENSE "Proprietary License")
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/MirianiWell/miriani-well-platform/commits/main "Maintenance")
